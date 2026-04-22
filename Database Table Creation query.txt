@@ -1,0 +1,143 @@
+create database project04;
+use project04;
+
+CREATE TABLE st_role (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(45),
+    description VARCHAR(45),   
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+SELECT * FROM ST_ROLE;
+
+CREATE TABLE st_user (
+    id BIGINT PRIMARY KEY,
+    first_name VARCHAR(45),
+    last_name VARCHAR(45),
+    login VARCHAR(45),
+    password VARCHAR(45),
+    dob DATETIME,
+    mobile_no VARCHAR(45),
+    role_id BIGINT,
+    gender VARCHAR(45),
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+SELECT * FROM ST_USER;
+
+CREATE TABLE st_college (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(255),
+    address VARCHAR(255),
+    state VARCHAR(45),
+    city VARCHAR(45),
+    phone_no VARCHAR(45),
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+SELECT * FROM ST_COLLEGE;
+
+CREATE TABLE st_student (
+    id BIGINT PRIMARY KEY,
+    first_name VARCHAR(45),
+    last_name VARCHAR(45),
+    dob DATETIME,
+    gender VARCHAR(45),
+    mobile_no VARCHAR(45),
+    email VARCHAR(255),
+    college_id BIGINT,
+    college_name VARCHAR(255),
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+SELECT * FROM st_student;
+
+CREATE TABLE st_marksheet (
+    id BIGINT PRIMARY KEY,
+    roll_no VARCHAR(45),
+    student_id BIGINT,
+    name VARCHAR(255),
+    physics INTEGER,
+    chemistry INTEGER,
+    maths INTEGER,
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+select * from st_marksheet;
+
+
+CREATE TABLE st_course (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(255),
+    duration VARCHAR(45),
+    description  VARCHAR(45),     
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+select * from st_course;
+
+CREATE TABLE st_subject (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(255),
+    course_id BIGINT,
+    course_name VARCHAR(255),
+    description  VARCHAR(45),
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+CREATE TABLE st_timetable (
+    id BIGINT PRIMARY KEY,
+    semester VARCHAR(45),
+    description  VARCHAR(255),
+    exam_date DATETIME,
+    exam_time VARCHAR(45),
+    course_id BIGINT,
+    course_name VARCHAR(255),
+    subject_id BIGINT,
+    subject_name VARCHAR(255),
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
+
+
+CREATE TABLE st_faculty (
+    id BIGINT PRIMARY KEY,
+    first_name VARCHAR(45),
+    last_name VARCHAR(45),
+    dob DATETIME,
+    gender VARCHAR(45),
+    mobile_no VARCHAR(45),
+    email VARCHAR(255),
+    college_id BIGINT,
+    college_name VARCHAR(255),
+    course_id BIGINT,
+    course_name VARCHAR(255),
+    subject_id BIGINT,
+    subject_name VARCHAR(255),
+    created_by VARCHAR(45),
+    modified_by VARCHAR(45),
+    created_datetime DATETIME,
+    modified_datetime DATETIME
+);
