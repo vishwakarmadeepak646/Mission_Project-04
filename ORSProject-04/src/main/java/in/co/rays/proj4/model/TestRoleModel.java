@@ -1,7 +1,12 @@
 package in.co.rays.proj4.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -12,7 +17,9 @@ public class TestRoleModel {
 
 		// getAdd();
 		// getUpdate();
-		getDelete();
+		// getDelete();
+		// getfindByPk();
+		getSearch();
 	}
 
 	public static void getAdd() throws ApplicationException {
@@ -56,6 +63,52 @@ public class TestRoleModel {
 
 		m.delete(bean);
 		System.out.println("Records Deleted successfully ...");
+	}
+
+	public static void getfindByPk() throws ApplicationException {
+
+		RoleBean bean = new RoleBean();
+		RoleModel m = new RoleModel();
+
+		bean = m.findByPk(2);
+
+		if (bean != null) {
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreatedDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("--------------------------");
+		}
+	}
+
+	public static void getSearch() throws ApplicationException {
+		RoleBean bean = new RoleBean();
+		RoleModel m = new RoleModel();
+		List<RoleBean> list = new ArrayList<RoleBean>();
+
+		// bean.setName("User");
+		// bean.setId(2);
+		// bean.setDescription("nor");
+
+		list = m.search(bean, 1, 5);
+		Iterator<RoleBean> it = list.iterator();
+
+		while (it.hasNext()) {
+			bean = it.next();
+
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreatedDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("--------------------------");
+		}
+
 	}
 
 }

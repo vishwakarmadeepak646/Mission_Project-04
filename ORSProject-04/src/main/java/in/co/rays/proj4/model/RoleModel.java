@@ -3,6 +3,8 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -141,6 +143,94 @@ public class RoleModel {
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
+	}
+
+	public RoleBean findByPk(long pk) throws ApplicationException {
+		Connection conn = null;
+		RoleBean bean = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_role where id = ?");
+			pstmt.setLong(1, pk);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new RoleBean();
+				bean.setId(rs.getLong(1));
+				bean.setName(rs.getString(2));
+				bean.setDescription(rs.getString(3));
+				bean.setCreatedBy(rs.getString(4));
+				bean.setModifiedBy(rs.getString(5));
+				bean.setCreatedDatetime(rs.getTimestamp(6));
+				bean.setModifiedDatetime(rs.getTimestamp(7));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in getting User by pk");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean;
+	}
+
+	public List<RoleBean> search(RoleBean bean, int pageNo, int pageSize) throws ApplicationException {
+
+		StringBuffer sql = new StringBuffer("select * from st_role where 1=1");
+
+		if (bean != null) {
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
+			}
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and name like '" + bean.getName() + "%'");
+			}
+
+			if (bean.getDescription() != null && bean.getDescription().length() > 0) {
+				sql.append(" and description like'" + bean.getDescription() + "%'");
+			}
+		}
+
+		if (pageNo > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + " ," + pageSize);
+		}
+
+		Connection conn = null;
+		ArrayList<RoleBean> list = new ArrayList<RoleBean>();
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new RoleBean();
+
+				bean.setId(rs.getLong(1));
+				bean.setName(rs.getString(2));
+				bean.setDescription(rs.getString(3));
+				bean.setCreatedBy(rs.getString(4));
+				bean.setModifiedBy(rs.getString(5));
+				bean.setCreatedDatetime(rs.getTimestamp(6));
+				bean.setModifiedDatetime(rs.getTimestamp(7));
+
+				list.add(bean);
+			}
+			rs.close();
+			pstmt.close();
+
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in search Role");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return list;
 	}
 
 }
