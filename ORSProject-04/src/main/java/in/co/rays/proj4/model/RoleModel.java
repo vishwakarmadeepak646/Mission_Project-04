@@ -86,7 +86,7 @@ public class RoleModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_role set name = ?, description 0 ?, created_by = ?, modified_by = ?, created_datetime = ? , modified_datetime = ? where id = ?");
+					"update st_role set name = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ? , modified_datetime = ? where id = ?");
 
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getDescription());
@@ -114,32 +114,31 @@ public class RoleModel {
 		}
 
 	}
-	
-	public void delete(RoleBean bean ) throws ApplicationException {
+
+	public void delete(RoleBean bean) throws ApplicationException {
 		Connection conn = null;
-		
+
 		try {
-			
-			JDBCDataSource.getConnection();
+
+			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_role where id = ?");
 			pstmt.setLong(1, bean.getId());
-			
+
 			pstmt.executeUpdate();
-			
+
 			conn.commit();
 			pstmt.close();
-			
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			try {
 				conn.rollback();
-			}catch(Exception ex) {
-				throw new ApplicationException("Exception :  Delete rollback exception" + ex.getMessage());
+			} catch (Exception ex) {
+				throw new ApplicationException("Exception :  Delete rollback exception " + ex.getMessage());
 			}
 			throw new ApplicationException("Exception in deleting role");
-		}finally {
+		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 	}
