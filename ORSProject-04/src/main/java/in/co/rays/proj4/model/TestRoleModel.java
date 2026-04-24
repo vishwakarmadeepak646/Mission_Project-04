@@ -19,7 +19,8 @@ public class TestRoleModel {
 		// getUpdate();
 		// getDelete();
 		// getfindByPk();
-		getSearch();
+		// getSearch();
+		getName();
 	}
 
 	public static void getAdd() throws ApplicationException {
@@ -81,6 +82,27 @@ public class TestRoleModel {
 			System.out.println(bean.getCreatedDatetime());
 			System.out.println(bean.getModifiedDatetime());
 			System.out.println("--------------------------");
+		}
+	}
+
+	public static void getName() throws ApplicationException {
+
+		RoleBean bean = new RoleBean();
+		RoleModel m = new RoleModel();
+
+		bean = m.findByName("User");
+
+		if (bean != null) {
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+			System.out.println(bean.getCreatedBy());
+			System.out.println(bean.getModifiedBy());
+			System.out.println(bean.getCreatedDatetime());
+			System.out.println(bean.getModifiedDatetime());
+			System.out.println("--------------------------");
+		} else {
+			System.out.println("No record found");
 		}
 	}
 

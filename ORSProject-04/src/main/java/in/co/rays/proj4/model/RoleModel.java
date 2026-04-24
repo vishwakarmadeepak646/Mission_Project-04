@@ -178,6 +178,43 @@ public class RoleModel {
 		return bean;
 	}
 
+	public RoleBean findByName(String name) throws ApplicationException {
+		
+		StringBuffer sql = new StringBuffer("select * from st_role where name = ?");
+		Connection conn = null;
+		RoleBean bean = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, name);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = new RoleBean();
+
+				bean.setId(rs.getLong(1));
+				bean.setName(rs.getString(2));
+				bean.setDescription(rs.getString(3));
+				bean.setCreatedBy(rs.getString(4));
+				bean.setModifiedBy(rs.getString(5));
+				bean.setCreatedDatetime(rs.getTimestamp(6));
+				bean.setModifiedDatetime(rs.getTimestamp(7));
+			}
+			rs.close();
+			pstmt.close();
+
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in getting User by Role");
+
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean;
+	}
+
 	public List<RoleBean> search(RoleBean bean, int pageNo, int pageSize) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_role where 1=1");
