@@ -8,11 +8,12 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class CollegeModel {
 
-	public Integer nextPk() throws ApplicationException {
+	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -32,7 +33,7 @@ public class CollegeModel {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ApplicationException("Exception in getting Pk");
+			throw new DatabaseException("Exception in getting Pk");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}

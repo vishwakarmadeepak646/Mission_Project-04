@@ -8,11 +8,12 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class UserModel {
 
-	public Integer nextPk() throws ApplicationException {
+	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -27,7 +28,7 @@ public class UserModel {
 
 		} catch (Exception e) {
 
-			throw new ApplicationException("Exception : Exception in getting PK");
+			throw new DatabaseException("Exception : Exception in getting PK");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
