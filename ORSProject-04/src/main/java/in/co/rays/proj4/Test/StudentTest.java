@@ -10,11 +10,12 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.model.StudentModel;
 
 public class StudentTest {
 
 	public static void main(String[] args) throws Exception {
-		// getAdd();
+		 //getAdd();
 		// getUpdate();
 		// getDelete();
 		// findByPk();
