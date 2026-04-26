@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
+
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -43,6 +45,12 @@ public class CourseModel {
 		StringBuffer sql = new StringBuffer("insert into st_course values(?,?,?,?,?,?,?,?)");
 		Connection conn = null;
 		int pk = 0;
+
+		CourseBean exist = findByName(bean.getName());
+
+		if (exist != null) {
+			throw new DuplicateElementException("Course name already exists");
+		}
 
 		try {
 			pk = nextPk();
@@ -248,8 +256,8 @@ public class CourseModel {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				bean = new CourseBean();
 				bean.setId(rs.getLong(1));
 				bean.setName(rs.getString(2));
@@ -259,12 +267,12 @@ public class CourseModel {
 				bean.setModifiedBy(rs.getString(6));
 				bean.setCreatedDatetime(rs.getTimestamp(7));
 				bean.setModifiedDatetime(rs.getTimestamp(8));
-				list.add(bean);				
+				list.add(bean);
 			}
 
 		} catch (Exception e) {
 			throw new ApplicationException("Exception : Exception in search Course");
-		}finally {
+		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 

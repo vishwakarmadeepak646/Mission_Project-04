@@ -12,6 +12,7 @@ import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class SubjectModel {
@@ -38,7 +39,7 @@ public class SubjectModel {
 		return pk + 1;
 	}
 
-	public long add(SubjectBean bean) throws ApplicationException {
+	public long add(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -46,6 +47,11 @@ public class SubjectModel {
 		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
 
 		bean.setCourseName(courseBean.getName());
+
+		SubjectBean duplicateSubject = findByName(bean.getName());
+		if (duplicateSubject != null) {
+			throw new DuplicateRecordException("Subject Name already exists");
+		}
 
 		try {
 			pk = nextPk();
@@ -217,7 +223,7 @@ public class SubjectModel {
 
 		return bean;
 	}
-	
+
 	public List<SubjectBean> search(SubjectBean bean, int pageNo, int pageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_subject where 1=1");
 

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
+
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -43,6 +45,12 @@ public class RoleModel {
 	public long add(RoleBean bean) throws ApplicationException {
 		Connection conn = null;
 		int pk = 0;
+
+		RoleBean exist = findByName(bean.getName());
+
+		if (exist != null) {
+			throw new DuplicateElementException("Role already exists");
+		}
 
 		try {
 			pk = nextPk();
@@ -179,7 +187,7 @@ public class RoleModel {
 	}
 
 	public RoleBean findByName(String name) throws ApplicationException {
-		
+
 		StringBuffer sql = new StringBuffer("select * from st_role where name = ?");
 		Connection conn = null;
 		RoleBean bean = null;

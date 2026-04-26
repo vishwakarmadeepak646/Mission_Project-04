@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
+
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -40,6 +42,12 @@ public class UserModel {
 		StringBuffer sql = new StringBuffer("insert into st_user values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		int pk = 0;
 		Connection conn = null;
+
+		UserBean exist = findByLogin(bean.getLogin());
+
+		if (exist != null) {
+			throw new DuplicateElementException("Login id already exists");
+		}
 
 		try {
 			pk = nextPk();
@@ -311,7 +319,7 @@ public class UserModel {
 				sql.append(" and password like '" + bean.getPassword() + "%'");
 			}
 			if (bean.getDob() != null && bean.getDob().getDate() > 0) {
-				sql.append(" and dob like '" + new java.sql.Date(bean.getDob().getTime())+ "%'");
+				sql.append(" and dob like '" + new java.sql.Date(bean.getDob().getTime()) + "%'");
 			}
 			if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
 				sql.append(" and mobile_no = " + bean.getMobileNo());

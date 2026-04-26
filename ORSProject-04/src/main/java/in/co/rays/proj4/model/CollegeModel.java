@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
+
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -44,6 +46,12 @@ public class CollegeModel {
 	public Integer add(CollegeBean bean) throws ApplicationException {
 		Connection conn = null;
 		int pk = 0;
+
+		CollegeBean exist = findByName(bean.getName());
+
+		if (exist != null) {
+			throw new DuplicateElementException("College Name already exists\"");
+		}
 
 		try {
 			pk = nextPk();
@@ -246,7 +254,7 @@ public class CollegeModel {
 				sql.append(" and city like'" + bean.getCity() + "%'");
 			}
 			if (bean.getPhoneNo() != null && bean.getPhoneNo().length() > 0) {
-				sql.append(" and phone_no like'" + bean.getPhoneNo() +"%'");
+				sql.append(" and phone_no like'" + bean.getPhoneNo() + "%'");
 			}
 		}
 

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
+
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -43,8 +45,13 @@ public class StudentModel {
 
 		CollegeModel collegeModel = new CollegeModel();
 		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
-
 		bean.setCollegeName(collegeBean.getName());
+
+		StudentBean duplicate = findByEmailId(bean.getEmail());
+
+		if (duplicate != null) {
+			throw new DuplicateElementException("Student E-mail id already exists in Database");
+		}
 
 		try {
 			pk = nextPk();

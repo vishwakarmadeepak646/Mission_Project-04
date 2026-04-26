@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
+
 import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -42,8 +44,13 @@ public class MarksheetModel {
 
 		StudentModel studentModel = new StudentModel();
 		StudentBean studentBean = studentModel.findByPk(bean.getStudentId());
-
 		bean.setName(studentBean.getFirstName() + " " + studentBean.getLastName());
+
+		MarksheetBean exist = findByRollNo(bean.getRollNo());
+
+		if (exist != null) {
+			throw new DuplicateElementException("Roll Number already exists");
+		}
 
 		try {
 			pk = nextPk();
