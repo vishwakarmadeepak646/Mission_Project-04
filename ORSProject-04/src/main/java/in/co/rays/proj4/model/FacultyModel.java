@@ -110,11 +110,6 @@ public class FacultyModel {
 		return pk;
 	}
 
-	private FacultyBean findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void update(FacultyBean bean) throws ApplicationException {
 
 		Connection conn = null;
@@ -246,7 +241,7 @@ public class FacultyModel {
 		return bean;
 	}
 
-	public FacultyBean findByName(String name) throws ApplicationException {
+	public FacultyBean findByEmail(String email) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_faculty where email = ?");
 		Connection conn = null;
 
@@ -255,7 +250,7 @@ public class FacultyModel {
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, name);
+			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {

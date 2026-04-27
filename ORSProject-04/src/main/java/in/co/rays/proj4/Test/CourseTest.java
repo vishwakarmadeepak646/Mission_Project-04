@@ -14,12 +14,12 @@ public class CourseTest {
 
 	public static void main(String[] args) throws ApplicationException {
 
-		// getAdd();
+		 //getAdd();
 		// getUpdate();
 		// getDelete();
 		// findByPK();
 		// findByName();
-		search();
+		// search();
 	}
 
 	public static void getAdd() throws ApplicationException {

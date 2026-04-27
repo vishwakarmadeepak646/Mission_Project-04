@@ -79,7 +79,7 @@ public class UserModel {
 			try {
 				conn.rollback();
 			} catch (Exception ex) {
-				throw new ApplicationException("Exception : add rollback exception \" + ex.getMessage());");
+				throw new ApplicationException("Exception : add rollback exception " + ex.getMessage());
 			}
 			throw new ApplicationException("Exception : Exception in add User");
 		} finally {

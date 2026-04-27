@@ -12,12 +12,12 @@ import in.co.rays.proj4.model.CollegeModel;
 public class CollegeTest {
 
 	public static void main(String[] args) {
-		// getAdd();
+		 // getAdd();
 		// getUpdate();
 		// getDelete();
 		// findByPK();
 		// findByName();
-		search();
+		// search();
 	}
 
 	public static void getAdd() {

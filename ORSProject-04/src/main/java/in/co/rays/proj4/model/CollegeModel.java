@@ -50,7 +50,7 @@ public class CollegeModel {
 		CollegeBean exist = findByName(bean.getName());
 
 		if (exist != null) {
-			throw new DuplicateElementException("College Name already exists\"");
+			throw new DuplicateElementException("College Name already exists1");
 		}
 
 		try {

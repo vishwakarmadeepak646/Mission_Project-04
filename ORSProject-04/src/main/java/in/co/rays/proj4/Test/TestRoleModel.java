@@ -16,19 +16,19 @@ public class TestRoleModel {
 
 	public static void main(String[] args) throws ApplicationException {
 
-		// getAdd();
+		 //getAdd();
 		// getUpdate();
 		// getDelete();
 		// getfindByPk();
 		// getSearch();
-		getName();
+		//getName();
 	}
 
 	public static void getAdd() throws ApplicationException {
 		RoleBean bean = new RoleBean();
 		RoleModel m = new RoleModel();
 
-		bean.setName("User5");
+		bean.setName("Admin");
 		bean.setDescription("Normal user role");
 		bean.setCreatedBy("System");
 		bean.setModifiedBy("System");

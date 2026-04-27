@@ -18,7 +18,7 @@ public class MarksheetTest {
 		// getDelete();
 		// findByPK();
 		// findByRollNo();
-		search();
+		// search();
 	}
 
 	public static void getAdd() throws ApplicationException {

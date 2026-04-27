@@ -50,6 +50,7 @@ public class SubjectModel {
 
 		SubjectBean duplicateSubject = findByName(bean.getName());
 		if (duplicateSubject != null) {
+
 			throw new DuplicateRecordException("Subject Name already exists");
 		}
 

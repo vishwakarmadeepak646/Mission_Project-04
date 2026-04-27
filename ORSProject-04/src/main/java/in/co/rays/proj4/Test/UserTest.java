@@ -15,13 +15,13 @@ import in.co.rays.proj4.model.UserModel;
 public class UserTest {
 
 	public static void main(String[] args) throws ParseException, ApplicationException {
-		// getAdd();
+		 //getAdd();
 		// getUpdate();
 		// getDelete();
 		// FindByPK();
 		// findbyLogin();
 		// authenticate();
-		search();
+		// search();
 	}
 
 	public static void getAdd() throws ParseException, ApplicationException {

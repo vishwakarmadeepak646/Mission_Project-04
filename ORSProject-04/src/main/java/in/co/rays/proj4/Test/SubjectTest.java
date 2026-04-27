@@ -13,7 +13,7 @@ import in.co.rays.proj4.model.SubjectModel;
 public class SubjectTest {
 
 	public static void main(String[] args) throws ApplicationException {
-		// getAdd();
+		 //getAdd();
 		// getUpdate();
 		// getDelete();
 		// findByPk();

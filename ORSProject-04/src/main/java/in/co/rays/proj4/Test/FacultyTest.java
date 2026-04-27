@@ -15,13 +15,13 @@ import in.co.rays.proj4.model.FacultyModel;
 
 public class FacultyTest {
 
-	public static void main(String[] args) throws ApplicationException, ParseException {
-		// getAdd();
+	public static void main(String[] args) throws ApplicationException, ParseException, DuplicateRecordException {
+		 // getAdd();
 		// getUpdate();
 		// getDelete();
 		// findByPK();
-		// findByEmail();
-		search();
+		 //findByEmail();
+		 search();
 	}
 
 	public static void getAdd() throws ApplicationException, ParseException, DuplicateRecordException {
@@ -112,7 +112,7 @@ public class FacultyTest {
 		try {
 			FacultyModel facModel = new FacultyModel();
 			FacultyBean bean = new FacultyBean();
-			bean = facModel.findByName("suresh@gamail.com");
+			bean = facModel.findByEmail("suresh@gamail.com");
 
 			if (bean != null) {
 
