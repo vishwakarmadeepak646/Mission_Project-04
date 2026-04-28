@@ -1,0 +1,37 @@
+<%@page import="in.co.rays.proj4.bean.UserBean"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script src="/ORS_Project4/js/checkbox.js"></script>
+<script src="/ORS_Project4/js/datepicker.js"></script>
+</head>
+<body>
+	<%
+	UserBean user = (UserBean) session.getAttribute("user");
+	%>
+	<%
+	if (user != null) {
+	%>
+	<h3>
+		Hi,
+		<%=user.getFirstName()%>
+		(<%=session.getAttribute("role")%>)
+	</h3>
+	<a href=#"><b>Logout</b></a>
+	<%
+	} else {
+	%>
+	<h3>Hi, Guest</h3>
+	<a href="WelcomeCtl"><b>Welcome</b></a> |
+	<a href="#"><b>Login</b></a>
+	<%
+	}
+	%>
+	<hr>
+</body>
+</html>

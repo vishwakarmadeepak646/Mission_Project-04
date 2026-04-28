@@ -126,7 +126,7 @@ public class DataUtility {
 
 		// Test getDate
 		System.out.println("\ngetDate Test:");
-		String dateStr = "10/15/2024";
+		String dateStr = "10-15-2024";
 		Date date = getDate(dateStr);
 		System.out.println("String to Date: '" + dateStr + "' -> " + date);
 
