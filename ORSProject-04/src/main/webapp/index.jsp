@@ -11,6 +11,16 @@
 	<br>
 	<br>
 
+
+	<div align="center">
+		<img src="img/customLogo.jpg" align="middle" width="320" height="127"
+			border="0">
+	</div>
+
+
+	<br>
+	<br>
+
 	<h1 align="center">
 		<a href="WelcomeCtl"><font size="10px" color="red">Online
 				Result System</font></a>

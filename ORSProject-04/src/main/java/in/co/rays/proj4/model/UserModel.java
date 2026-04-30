@@ -11,6 +11,7 @@ import com.mchange.util.DuplicateElementException;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class UserModel {
@@ -38,7 +39,7 @@ public class UserModel {
 		return pk + 1;
 	}
 
-	public long add(UserBean bean) throws ApplicationException {
+	public long add(UserBean bean) throws DuplicateRecordException, ApplicationException {
 		StringBuffer sql = new StringBuffer("insert into st_user values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		int pk = 0;
 		Connection conn = null;

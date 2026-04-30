@@ -45,10 +45,10 @@ public abstract class BaseCtl extends HttpServlet {
 
 	// get data from view and set into bean object
 	protected BaseBean populateBean(HttpServletRequest request) {
+
 		return null;
 	}
 
-	
 	// Track the changes done by Admin/Student/College etc
 	protected BaseBean populateDTO(BaseBean dto, HttpServletRequest request) {
 
@@ -83,6 +83,7 @@ public abstract class BaseCtl extends HttpServlet {
 		return dto;
 	}
 
+	// It will run first every time, whenever user send request
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -100,10 +101,10 @@ public abstract class BaseCtl extends HttpServlet {
 				return;
 			}
 		}
-
 		super.service(request, response);
 	}
 
+	//
 	protected abstract String getView();
 
 }
