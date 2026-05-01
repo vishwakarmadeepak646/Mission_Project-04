@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.Controller.ORSView"%>
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -22,7 +23,7 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
-	<a href=#"><b>Logout</b></a>
+	<a href="<%= ORSView.LOGIN_CTL +"?operation=Logout" %>"><b>Logout</b></a>
 	<%
 	} else {
 	%>

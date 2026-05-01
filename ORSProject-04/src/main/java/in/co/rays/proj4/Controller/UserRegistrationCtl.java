@@ -115,6 +115,8 @@ public class UserRegistrationCtl extends BaseCtl {
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
 		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
 
+		
+		// In this method it will return Basebean | It is important to remember
 		bean.setRoleId(RoleBean.STUDENT);
 
 		return bean;
