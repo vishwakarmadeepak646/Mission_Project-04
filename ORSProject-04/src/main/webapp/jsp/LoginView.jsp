@@ -12,9 +12,9 @@
 </head>
 <body>
 
-	<%@ include file="Header.jsp"%>
 
-	<form action="<%=ORSView.LOGIN_CTL%>>" method="post">
+	<%@ include file="Header.jsp"%>
+	<form action="<%=ORSView.LOGIN_CTL%>" method="post">
 
 		<%-- <%UserBean bean = (UserBean) request.getAttribute("bean"); %> --%>
 
@@ -25,34 +25,33 @@
 			<h1>Login</h1>
 
 			<div style="height: 15px; margin-bottom: 12px">
-				<h3 align="center">
-					<font color="green"><%=ServletUtility.getSuccessMessage(request)%></font>
-				</h3>
-
-				<h3 align="center">
-					<font color="red"><%=ServletUtility.getErrorMessage(request)%></font>
-				</h3>
+				<H3 align="center">
+					<font color="green"> <%=ServletUtility.getSuccessMessage(request)%>
+					</font>
+				</H3>
+				<H3 align="center">
+					<font color="red"> <%=ServletUtility.getErrorMessage(request)%>
+					</font>
+				</H3>
 			</div>
 
 			<table>
-
 				<tr>
 					<th>Login ID:</th>
 					<td><input type="text" name="login"
-						placeholder="enter loginId"
+						placeholder="Enter login Id"
 						value="<%=DataUtility.getStringData(bean.getLogin())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("login", request)%></font></td>
 
 				</tr>
 				<tr>
 					<th>Password:</th>
-					<td><input type="text" name="password"
-						placeholder="enter password"
+					<td><input type="password" name="password"
+						placeholder="Enter password"
 						value="<%=DataUtility.getStringData(bean.getPassword())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("password", request)%></font></td>
 
 				</tr>
-
 				<tr>
 					<td></td>
 					<td><input type="submit" name="operation"
@@ -60,16 +59,9 @@
 						name="operation" value="<%=LoginCtl.OP_SIGN_UP%>"></td>
 
 				</tr>
-
-
 			</table>
-
-
-
-
 		</div>
 	</form>
 	<%@ include file="Footer.jsp"%>
-
 </body>
 </html>
