@@ -62,9 +62,23 @@
 			</tr>
 			<tr>
 				<th></th>
-				<td align="left" colspan="2"><input type="submit"
-					name="operation" value="<%=RoleCtl.OP_SAVE%>"> <input
-					type="submit" name="operation" value="<%=RoleCtl.OP_RESET%>"></td>
+				<%
+					if (bean != null && bean.getId() > 0) {
+					%>
+					<td align="left" colspan="2"><input type="submit"
+						name="operation" value="<%=RoleCtl.OP_UPDATE%>"> <input
+						type="submit" name="operation" value="<%=RoleCtl.OP_CANCEL%>">
+					</td>
+					<%
+					} else {
+					%>
+					<td align="left" colspan="2"><input type="submit"
+						name="operation" value="<%=RoleCtl.OP_SAVE%>"> <input
+						type="submit" name="operation" value="<%=RoleCtl.OP_RESET%>">
+					</td>
+					<%
+					}
+					%>
 		</table>
 	</form>
 	<%@ include file="Footer.jsp"%>

@@ -43,7 +43,7 @@ public class RoleModel {
 		return pk + 1;
 	}
 
-	public long add(RoleBean bean) throws ApplicationException , DuplicateRecordException{
+	public long add(RoleBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -89,8 +89,14 @@ public class RoleModel {
 		return pk;
 	}
 
-	public void update(RoleBean bean) throws ApplicationException , DuplicateRecordException{
+	public void update(RoleBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+
+		RoleBean exist = findByName(bean.getName());
+
+		if (exist != null) {
+			throw new DuplicateRecordException("Role already exists");
+		}
 
 		try {
 
