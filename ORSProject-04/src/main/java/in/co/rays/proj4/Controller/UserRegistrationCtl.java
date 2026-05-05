@@ -31,15 +31,15 @@ public class UserRegistrationCtl extends BaseCtl {
 		boolean pass = true;
 
 		if (DataValidator.isNull(request.getParameter("firstName"))) {
-			request.setAttribute("firstName", "firstName is required");
+			request.setAttribute("firstName", "First Name is required");
 			pass = false;
 		} else if (!DataValidator.isName(request.getParameter("firstName"))) {
-			request.setAttribute("firstName", "firstName is invalid");
+			request.setAttribute("firstName", "First Name is invalid");
 			pass = false;
 		}
 
 		if (DataValidator.isNull(request.getParameter("lastName"))) {
-			request.setAttribute("lastName", "lastName is required");
+			request.setAttribute("lastName", "Last Name is required");
 			pass = false;
 		} else if (!DataValidator.isName(request.getParameter("lastName"))) {
 			request.setAttribute("lastName", "Invalid Last Name");
@@ -47,7 +47,7 @@ public class UserRegistrationCtl extends BaseCtl {
 		}
 
 		if (DataValidator.isNull(request.getParameter("login"))) {
-			request.setAttribute("login", "login is required");
+			request.setAttribute("login", "Login id is required");
 			pass = false;
 		} else if (!DataValidator.isEmail(request.getParameter("login"))) {
 			request.setAttribute("login", "Invalid login id");
@@ -55,7 +55,7 @@ public class UserRegistrationCtl extends BaseCtl {
 		}
 
 		if (DataValidator.isNull(request.getParameter("password"))) {
-			request.setAttribute("password", "password is required");
+			request.setAttribute("password", "Password is required");
 			pass = false;
 		} else if (!DataValidator.isPasswordLength(request.getParameter("password"))) {
 			request.setAttribute("password", "Password should be 8 to 12 characters");
