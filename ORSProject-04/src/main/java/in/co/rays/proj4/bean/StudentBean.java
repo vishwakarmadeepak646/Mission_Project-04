@@ -77,4 +77,9 @@ public class StudentBean extends BaseBean {
 		this.collegeName = collegeName;
 	}
 
+	@Override
+	public String getValue() {
+		
+		return firstName + " " + lastName;
+	}
 }

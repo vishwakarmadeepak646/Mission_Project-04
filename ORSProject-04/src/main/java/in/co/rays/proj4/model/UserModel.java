@@ -90,7 +90,7 @@ public class UserModel {
 		return pk;
 	}
 
-	public void update(UserBean bean) throws ApplicationException {
+	public void update(UserBean bean) throws ApplicationException , DuplicateRecordException{
 		Connection conn = null;
 
 		try {

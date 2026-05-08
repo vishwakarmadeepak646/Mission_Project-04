@@ -39,4 +39,10 @@ public class SubjectBean extends BaseBean {
 		this.description = description;
 	}
 
+	@Override
+	public String getValue() {
+
+		return name;
+	}
+
 }

@@ -229,6 +229,9 @@ public class RoleModel {
 
 		return bean;
 	}
+	public List<RoleBean> list() throws ApplicationException{
+		return search(null,0,0);
+	}
 
 	public List<RoleBean> search(RoleBean bean, int pageNo, int pageSize) throws ApplicationException {
 
