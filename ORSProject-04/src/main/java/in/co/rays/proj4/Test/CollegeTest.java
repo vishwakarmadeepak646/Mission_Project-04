@@ -7,6 +7,7 @@ import java.util.List;
 import java.sql.Timestamp;
 
 import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.model.CollegeModel;
 
 public class CollegeTest {
@@ -135,7 +136,7 @@ public class CollegeTest {
 		}
 	}
 
-	public static void search() {
+	public static void search() throws ApplicationException {
 		CollegeBean bean = new CollegeBean();
 		CollegeModel model = new CollegeModel();
 		List<CollegeBean> list = new ArrayList<CollegeBean>();

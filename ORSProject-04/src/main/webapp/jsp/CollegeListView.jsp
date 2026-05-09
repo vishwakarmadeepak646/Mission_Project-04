@@ -26,10 +26,10 @@
 
 		<div style="height: 15px; margin-bottom: 12px">
 			<h3>
-				<font><%=ServletUtility.getErrorMessage(request)%></font>
+				<font color="red"><%=ServletUtility.getErrorMessage(request)%></font>
 			</h3>
 			<h3>
-				<font><%=ServletUtility.getSuccessMessage(request)%></font>
+				<font color="green"><%=ServletUtility.getSuccessMessage(request)%></font>
 			</h3>
 
 		</div>

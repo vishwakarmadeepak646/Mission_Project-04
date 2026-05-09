@@ -10,6 +10,7 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.UserModel;
 
 public class UserTest {
@@ -24,7 +25,7 @@ public class UserTest {
 		// search();
 	}
 
-	public static void getAdd() throws ParseException, ApplicationException {
+	public static void getAdd() throws ParseException, ApplicationException, DuplicateRecordException {
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 		UserBean bean = new UserBean();
 		UserModel m = new UserModel();
@@ -44,7 +45,7 @@ public class UserTest {
 		m.add(bean);
 	}
 
-	public static void getUpdate() throws ParseException, ApplicationException {
+	public static void getUpdate() throws ParseException, ApplicationException, DuplicateRecordException {
 
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 		UserBean bean = new UserBean();

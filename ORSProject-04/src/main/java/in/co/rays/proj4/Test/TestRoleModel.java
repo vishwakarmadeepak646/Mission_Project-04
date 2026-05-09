@@ -10,6 +10,7 @@ import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.RoleModel;
 
 public class TestRoleModel {
@@ -24,7 +25,7 @@ public class TestRoleModel {
 		//getName();
 	}
 
-	public static void getAdd() throws ApplicationException {
+	public static void getAdd() throws ApplicationException, DuplicateRecordException {
 		RoleBean bean = new RoleBean();
 		RoleModel m = new RoleModel();
 
@@ -40,7 +41,7 @@ public class TestRoleModel {
 
 	}
 
-	public static void getUpdate() throws ApplicationException {
+	public static void getUpdate() throws ApplicationException, DuplicateRecordException {
 		RoleBean bean = new RoleBean();
 		RoleModel m = new RoleModel();
 

@@ -106,10 +106,21 @@
 				</tr>
 
 				<tr>
-
+					<%
+					if (bean != null && bean.getId() > 0) {
+					%>
+					<td align="left" colspan="2"><input type="submit"
+						name="operation" value="<%=CollegeCtl.OP_UPDATE%>"> <input
+						type="submit" name="operation" value="<%=CollegeCtl.OP_CANCEL%>">
+						<%
+						} else {
+						%></td>
 					<td align="left" colspan="2"><input type="submit"
 						name="operation" value="<%=CollegeCtl.OP_SAVE%>"> <input
-						type="submit" name="operation" value="<%=CollegeCtl.OP_RESET%>"></td>
+						type="submit" name="operation" value="<%=CollegeCtl.OP_RESET%>">
+						<%
+						}
+						%></td>
 				</tr>
 
 
