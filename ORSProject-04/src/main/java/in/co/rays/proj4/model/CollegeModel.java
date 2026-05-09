@@ -9,8 +9,10 @@ import java.util.List;
 import com.mchange.util.DuplicateElementException;
 
 import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class CollegeModel {
@@ -43,7 +45,7 @@ public class CollegeModel {
 		return pk + 1;
 	}
 
-	public Integer add(CollegeBean bean) throws ApplicationException {
+	public Integer add(CollegeBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -90,7 +92,7 @@ public class CollegeModel {
 		return pk;
 	}
 
-	public void update(CollegeBean bean) throws ApplicationException {
+	public void update(CollegeBean bean) throws ApplicationException , DuplicateRecordException{
 
 		Connection conn = null;
 
@@ -231,8 +233,13 @@ public class CollegeModel {
 		return bean;
 
 	}
+	
+	public List<CollegeBean> list() throws ApplicationException{
+		return search(null, 0 , 0);
+	}
+	
 
-	public List<CollegeBean> search(CollegeBean bean, int PageNo, int PageSize) {
+	public List<CollegeBean> search(CollegeBean bean, int PageNo, int PageSize)  throws ApplicationException{
 
 		StringBuffer sql = new StringBuffer("select * from st_college where 1=1");
 
