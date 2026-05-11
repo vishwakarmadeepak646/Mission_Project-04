@@ -12,6 +12,7 @@ import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class MarksheetModel {
@@ -38,7 +39,7 @@ public class MarksheetModel {
 		return pk + 1;
 	}
 
-	public long add(MarksheetBean bean) throws ApplicationException {
+	public long add(MarksheetBean bean) throws ApplicationException , DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -49,7 +50,7 @@ public class MarksheetModel {
 		MarksheetBean exist = findByRollNo(bean.getRollNo());
 
 		if (exist != null) {
-			throw new DuplicateElementException("Roll Number already exists");
+			throw new DuplicateRecordException("Roll Number already exists");
 		}
 
 		try {

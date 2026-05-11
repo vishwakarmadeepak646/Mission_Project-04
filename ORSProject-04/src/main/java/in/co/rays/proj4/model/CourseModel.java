@@ -11,6 +11,7 @@ import com.mchange.util.DuplicateElementException;
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class CourseModel {
@@ -41,7 +42,7 @@ public class CourseModel {
 		return pk + 1;
 	}
 
-	public long add(CourseBean bean) throws ApplicationException {
+	public long add(CourseBean bean) throws ApplicationException, DuplicateRecordException {
 		StringBuffer sql = new StringBuffer("insert into st_course values(?,?,?,?,?,?,?,?)");
 		Connection conn = null;
 		int pk = 0;
@@ -49,7 +50,7 @@ public class CourseModel {
 		CourseBean exist = findByName(bean.getName());
 
 		if (exist != null) {
-			throw new DuplicateElementException("Course name already exists");
+			throw new DuplicateRecordException("Course name already exists");
 		}
 
 		try {

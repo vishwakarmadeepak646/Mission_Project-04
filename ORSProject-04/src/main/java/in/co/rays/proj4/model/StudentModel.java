@@ -13,6 +13,7 @@ import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class StudentModel {
@@ -39,7 +40,7 @@ public class StudentModel {
 		return pk + 1;
 	}
 
-	public long add(StudentBean bean) throws ApplicationException {
+	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 		int pk = 0;
 		Connection conn = null;
 
@@ -50,7 +51,7 @@ public class StudentModel {
 		StudentBean duplicate = findByEmailId(bean.getEmail());
 
 		if (duplicate != null) {
-			throw new DuplicateElementException("Student E-mail id already exists in Database");
+			throw new DuplicateRecordException("Student E-mail id already exists in Database");
 		}
 
 		try {
@@ -92,9 +93,15 @@ public class StudentModel {
 		return pk;
 	}
 
-	public void update(StudentBean bean) throws ApplicationException {
+	public void update(StudentBean bean) throws ApplicationException , DuplicateRecordException{
 
 		Connection conn = null;
+		
+		StudentBean duplicate = findByEmailId(bean.getEmail());
+
+		if (duplicate != null) {
+			throw new DuplicateRecordException("Student E-mail id already exists in Database");
+		}
 
 		CollegeModel collegeModel = new CollegeModel();
 		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());

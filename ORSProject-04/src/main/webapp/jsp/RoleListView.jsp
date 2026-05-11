@@ -52,7 +52,8 @@
 				<td align="center"><label><b>Role : </b></label> <input
 					type="text" name="name" placeholder="Enter Role Name"
 					value="<%=DataUtility.getStringData(bean.getName())%>">
-					&nbsp; <input type="submit" name="operation"
+					&nbsp; 
+					<input type="submit" name="operation"
 					value="<%=RoleListCtl.OP_SEARCH%>">&nbsp; <input
 					type="submit" name="operation" value="<%=RoleListCtl.OP_RESET%>">
 				</td>
