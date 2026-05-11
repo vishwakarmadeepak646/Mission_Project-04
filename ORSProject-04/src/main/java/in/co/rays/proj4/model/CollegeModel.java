@@ -95,6 +95,13 @@ public class CollegeModel {
 	public void update(CollegeBean bean) throws ApplicationException , DuplicateRecordException{
 
 		Connection conn = null;
+		
+		CollegeBean exist = findByName(bean.getName());
+
+		if (exist != null) {
+			throw new DuplicateRecordException("College Name already exists");
+		}
+		
 
 		try {
 			conn = JDBCDataSource.getConnection();

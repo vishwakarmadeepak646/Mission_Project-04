@@ -9,6 +9,7 @@ import java.util.List;
 import com.mchange.util.DuplicateElementException;
 
 import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -87,14 +88,21 @@ public class MarksheetModel {
 		return pk;
 	}
 
-	public void update(MarksheetBean bean) throws ApplicationException {
+	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+		
+		
+		MarksheetBean exist = findByRollNo(bean.getRollNo());
+
+		if (exist != null) {
+			throw new DuplicateRecordException("Roll Number already exists");
+		}
 
 		StudentModel studentModel = new StudentModel();
 		StudentBean studentBean = studentModel.findByPk(bean.getStudentId());
 
 		bean.setName(studentBean.getFirstName() + " " + studentBean.getLastName());
-
+		
 		try {
 
 			conn = JDBCDataSource.getConnection();
@@ -231,6 +239,9 @@ public class MarksheetModel {
 		}
 
 		return bean;
+	}
+	public List<MarksheetBean> list() throws ApplicationException{
+		return search(null,0,0);
 	}
 
 	public List<MarksheetBean> search(MarksheetBean bean, int pageNo, int PageSize) throws ApplicationException {

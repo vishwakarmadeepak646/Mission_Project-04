@@ -3,7 +3,6 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,10 +12,12 @@ import com.mysql.cj.jdbc.JdbcConnection;
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.bean.TimetableBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class TimetableModel {
@@ -47,7 +48,7 @@ public class TimetableModel {
 		return pk + 1;
 	}
 
-	public long add(TimetableBean bean) throws ApplicationException {
+	public long add(TimetableBean bean) throws ApplicationException , DuplicateRecordException{
 
 		Connection conn = null;
 		int pk = 0;
@@ -99,7 +100,7 @@ public class TimetableModel {
 		return pk;
 	}
 
-	public void update(TimetableBean bean) throws ApplicationException {
+	public void update(TimetableBean bean) throws ApplicationException , DuplicateRecordException{
 
 		Connection conn = null;
 
@@ -388,8 +389,12 @@ public class TimetableModel {
 		}
 		return bean;
 	}
+	
+	public List<TimetableBean> list() throws Exception{
+		return search(null,0,0);
+	}
 
-	public List<TimetableBean> search(TimetableBean bean, int PageNo, int PageSize) throws SQLException {
+	public List<TimetableBean> search(TimetableBean bean, int PageNo, int PageSize) throws Exception {
 		StringBuffer sql = new StringBuffer("select * from st_timetable where 1=1");
 
 		if (bean != null) {

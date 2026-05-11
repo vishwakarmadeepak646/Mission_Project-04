@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.mchange.util.DuplicateElementException;
 
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -92,6 +93,12 @@ public class UserModel {
 
 	public void update(UserBean bean) throws ApplicationException , DuplicateRecordException{
 		Connection conn = null;
+		
+		UserBean exist = findByLogin(bean.getLogin());
+
+		if (exist != null) {
+			throw new DuplicateElementException("Login id already exists");
+		}
 
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -284,6 +291,10 @@ public class UserModel {
 		}
 
 		return bean;
+	}
+	
+	public List<UserBean> list() throws ApplicationException{
+		return search(null,0,0);
 	}
 
 	/**

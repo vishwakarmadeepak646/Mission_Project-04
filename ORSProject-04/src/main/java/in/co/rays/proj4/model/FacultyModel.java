@@ -9,6 +9,7 @@ import java.util.List;
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -110,9 +111,15 @@ public class FacultyModel {
 		return pk;
 	}
 
-	public void update(FacultyBean bean) throws ApplicationException {
+	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
+		
+		FacultyBean existbean = findByEmail(bean.getEmail());
+
+		if (existbean != null) {
+			throw new DuplicateRecordException("Email Id already exists");
+		}
 
 		CollegeModel collegeModel = new CollegeModel();
 		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
@@ -284,6 +291,10 @@ public class FacultyModel {
 		return bean;
 	}
 
+	
+	public List<FacultyBean> list() throws ApplicationException{
+		return search(null,0,0);
+	}
 	public List<FacultyBean> search(FacultyBean bean, int PageNo, int PageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from  st_faculty  where 1=1");
 

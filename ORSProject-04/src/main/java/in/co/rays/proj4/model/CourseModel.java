@@ -9,6 +9,7 @@ import java.util.List;
 import com.mchange.util.DuplicateElementException;
 
 import in.co.rays.proj4.bean.CourseBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -87,11 +88,17 @@ public class CourseModel {
 		return pk;
 	}
 
-	public void update(CourseBean bean) throws ApplicationException {
+	public void update(CourseBean bean) throws ApplicationException , DuplicateRecordException{
 		StringBuffer sql = new StringBuffer(
 				"update st_course set name=?, duration = ?, description = ?, created_by =?, modified_by=?, created_datetime= ? , modified_datetime=? where id= ?");
 
 		Connection conn = null;
+		
+		CourseBean exist = findByName(bean.getName());
+
+		if (exist != null) {
+			throw new DuplicateRecordException("Course name already exists");
+		}
 
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -224,6 +231,10 @@ public class CourseModel {
 			;
 		}
 		return bean;
+	}
+	
+	public List<CourseBean> list() throws ApplicationException{
+		return search(null,0,0);
 	}
 
 	public List<CourseBean> search(CourseBean bean, int pageNo, int pageSize) throws ApplicationException {

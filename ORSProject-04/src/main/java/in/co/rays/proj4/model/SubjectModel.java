@@ -8,6 +8,7 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -87,13 +88,20 @@ public class SubjectModel {
 		return pk;
 	}
 
-	public void update(SubjectBean bean) throws ApplicationException {
+	public void update(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 
 		CourseModel courseModel = new CourseModel();
 		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
 
 		bean.setCourseName(courseBean.getName());
+		
+		
+		SubjectBean duplicateSubject = findByName(bean.getName());
+		if (duplicateSubject != null) {
+
+			throw new DuplicateRecordException("Subject Name already exists");
+		}
 
 		try {
 
@@ -223,6 +231,10 @@ public class SubjectModel {
 		}
 
 		return bean;
+	}
+	
+	public List<SubjectBean> list() throws ApplicationException{
+		return search(null,0,0);
 	}
 
 	public List<SubjectBean> search(SubjectBean bean, int pageNo, int pageSize) throws ApplicationException {

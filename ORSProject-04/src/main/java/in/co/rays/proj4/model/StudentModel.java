@@ -10,6 +10,7 @@ import java.util.List;
 import com.mchange.util.DuplicateElementException;
 
 import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
@@ -259,6 +260,10 @@ public class StudentModel {
 		return bean;
 	}
 
+	public List<StudentBean> list() throws ApplicationException{
+		return search(null,0,0);
+	}
+	
 	public List<StudentBean> search(StudentBean bean, int pageNo, int pageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_student where 1=1");
 
