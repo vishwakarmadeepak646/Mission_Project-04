@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.Controller.FacultyListCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>

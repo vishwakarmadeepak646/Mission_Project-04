@@ -81,7 +81,7 @@
 				</tr>
 				<tr>
 					<th align="left">Date of Birth<span style="color: red">*</span></th>
-					<td style="width : 100px"><input type="date" id="udate" name="dob" placeholder="Select Date of Birth"
+					<td style="width : 100px"><input type="date" id="udate" name="dob" style="width: 98%" placeholder="Select Date of Birth"
 						value="<%=DataUtility.getDateString(bean.getDob())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 				</tr>

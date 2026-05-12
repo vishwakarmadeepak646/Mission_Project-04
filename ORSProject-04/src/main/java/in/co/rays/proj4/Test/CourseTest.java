@@ -8,6 +8,7 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.CourseModel;
 
 public class CourseTest {
@@ -22,7 +23,7 @@ public class CourseTest {
 		// search();
 	}
 
-	public static void getAdd() throws ApplicationException {
+	public static void getAdd() throws ApplicationException, DuplicateRecordException {
 
 		CourseBean bean = new CourseBean();
 		CourseModel model = new CourseModel();
@@ -37,7 +38,7 @@ public class CourseTest {
 
 	}
 
-	public static void getUpdate() throws ApplicationException {
+	public static void getUpdate() throws ApplicationException, DuplicateRecordException {
 
 		CourseBean bean = new CourseBean();
 		CourseModel model = new CourseModel();

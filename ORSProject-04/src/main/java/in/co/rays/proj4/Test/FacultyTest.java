@@ -44,7 +44,7 @@ public class FacultyTest {
 		fac.add(bean);
 	}
 
-	public static void getUpdate() throws ApplicationException, ParseException {
+	public static void getUpdate() throws ApplicationException, ParseException, DuplicateRecordException {
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
 		FacultyModel fac = new FacultyModel();
 		FacultyBean bean = new FacultyBean();

@@ -90,7 +90,7 @@
 				</tr>
 				<tr>
 					<th align="left">Exam Date<span style="color: red">*</span></th>
-					<td><input type="date" id="udatee" name="examDate"
+					<td><input type="date" id="udatee" style="width: 96%" name="examDate"
 						placeholder="Select Exam Date"
 						value="<%=DataUtility.getDateString(bean.getExamDate())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("examDate", request)%></font></td>
@@ -113,7 +113,7 @@
 				<tr>
 					<th align="left">Description<span style="color: red">*</span></th>
 					<td align="center"><textarea
-							style="width: 170px; resize: none;" name="description" rows="3"
+							style="width: 165px; resize: none;" name="description" rows="3"
 							placeholder="Enter Short description"><%=DataUtility.getStringData(bean.getDescription()).trim()%></textarea>
 					</td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("description", request)%></font></td>

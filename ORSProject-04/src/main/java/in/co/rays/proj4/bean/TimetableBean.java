@@ -79,7 +79,7 @@ public class TimetableBean extends BaseBean {
 
 	@Override
 	public String getValue() {
-		return courseName;
+		return examDate + "";
 	}
 
 }

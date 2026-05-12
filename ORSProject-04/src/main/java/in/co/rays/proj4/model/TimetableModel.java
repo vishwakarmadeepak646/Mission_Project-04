@@ -394,7 +394,7 @@ public class TimetableModel {
 		return search(null,0,0);
 	}
 
-	public List<TimetableBean> search(TimetableBean bean, int PageNo, int PageSize) throws Exception {
+	public List<TimetableBean> search(TimetableBean bean, int PageNo, int PageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_timetable where 1=1");
 
 		if (bean != null) {
@@ -423,8 +423,8 @@ public class TimetableModel {
 			if (bean.getDescription() != null && bean.getDescription().length() > 0) {
 				sql.append(" and description like'" + bean.getDescription() + "%'");
 			}
-			if (bean.getExamDate() != null && bean.getExamDate().getDate() > 0) {
-				sql.append(" and exam_date like'" + new java.sql.Date(bean.getExamDate().getTime()) + "%'");
+			if (bean.getExamDate() != null && bean.getExamDate().getTime()> 0) {
+				sql.append(" and exam_date = " + new java.sql.Date(bean.getExamDate().getTime()));
 			}
 			if (bean.getExamTime() != null && bean.getExamTime().length() > 0) {
 				sql.append(" and exam_time like'" + bean.getExamTime() + "%'");
@@ -437,6 +437,7 @@ public class TimetableModel {
 			sql.append(" limit " + PageNo + " , " + PageSize);
 
 		}
+		System.out.println("SQL Query" + sql.toString());
 
 		ArrayList<TimetableBean> list = new ArrayList<TimetableBean>();
 		Connection conn = null;
@@ -467,7 +468,9 @@ public class TimetableModel {
 			rs.close();
 			pstmt.close();
 
-		} finally {
+		} catch (Exception e) {
+			throw new ApplicationException("Exception : Exception in search Timetable");
+		}finally {
 			JDBCDataSource.closeConnection(conn);
 		}
 
