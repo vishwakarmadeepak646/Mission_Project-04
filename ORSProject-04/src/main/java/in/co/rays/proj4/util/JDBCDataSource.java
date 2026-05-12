@@ -12,7 +12,7 @@ public final class JDBCDataSource {
 
 	private static JDBCDataSource jds = null;
 
-	private ComboPooledDataSource cpds = null;
+	private static ComboPooledDataSource cpds = null;
 
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
@@ -26,6 +26,7 @@ public final class JDBCDataSource {
 			cpds.setInitialPoolSize(Integer.parseInt(rb.getString("initialpoolsize")));
 			cpds.setAcquireIncrement(Integer.parseInt(rb.getString("acquireincrement")));
 			cpds.setMaxPoolSize(Integer.parseInt(rb.getString("maxpoolsize")));
+			cpds.setMinPoolSize(Integer.parseInt(rb.getString("minpoolsize")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
