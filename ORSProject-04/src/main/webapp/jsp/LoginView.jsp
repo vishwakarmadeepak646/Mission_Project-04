@@ -59,6 +59,16 @@
 						name="operation" value="<%=LoginCtl.OP_SIGN_UP%>"></td>
 
 				</tr>
+
+				<tr>
+					<th></th>
+					<td></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td><a href="<%=ORSView.FORGET_PASSWORD_CTL%>"><b>Forget
+								my password?</b></a>&nbsp;</td>
+				</tr>
 			</table>
 		</div>
 	</form>
