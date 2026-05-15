@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Header</title>
 
 <script src="/ORS_Project4/js/checkbox.js"></script>
 <script src="/ORS_Project4/js/datepicker.js"></script>
@@ -23,7 +23,7 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
-	<a href="ChangePasswordCtl"><b>Change Password</a> |
+	<a href="<%=ORSView.CHANGE_PASSWORD_CTL %>"><b>Change Password</a> |
 	<a href="<%=ORSView.ROLE_CTL%>">Add Role</a> |
 	<a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a> |
 	<a href="<%=ORSView.USER_CTL%>">Add User</a> |

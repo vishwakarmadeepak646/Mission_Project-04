@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
+
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
@@ -186,6 +188,7 @@ public class UserCtl extends BaseCtl {
 			try {
 				if (id > 0) {
 					model.update(bean);
+					System.out.println("Inside update");
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("User updated successfully", request);

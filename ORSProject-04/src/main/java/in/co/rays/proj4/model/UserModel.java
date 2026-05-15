@@ -98,10 +98,10 @@ public class UserModel {
 	public void update(UserBean bean) throws ApplicationException , DuplicateRecordException{
 		Connection conn = null;
 		
-		UserBean exist = findByLogin(bean.getLogin());
+		UserBean existsBean = findByLogin(bean.getLogin());
 
-		if (exist != null) {
-			throw new DuplicateElementException("Login id already exists");
+		if (existsBean != null && existsBean.getId()!=bean.getId()) {
+			throw new DuplicateRecordException("Login id already exists");
 		}
 
 		try {
