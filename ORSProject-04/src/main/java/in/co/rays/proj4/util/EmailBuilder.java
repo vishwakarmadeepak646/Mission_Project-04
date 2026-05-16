@@ -2,8 +2,18 @@ package in.co.rays.proj4.util;
 
 import java.util.HashMap;
 
+/**
+ * EmailBuilder is a utility class used to generate structured HTML email 
+ * message templates for various application events.
+*  @author Deepak Vishwakarma
+ */
 public class EmailBuilder {
 
+	/**
+	 * Builds an HTML email message for new user registration.
+	 * * @param map a hashmap containing 'login' and 'password' keys
+	 * @return formatted HTML string for the email body
+	 */
 	public static String getUserRegistrationMessage(HashMap<String, String> map) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("<HTML><BODY>");
@@ -17,6 +27,11 @@ public class EmailBuilder {
 		return msg.toString();
 	}
 
+	/**
+	 * Builds an HTML email message for password recovery.
+	 * * @param map a hashmap containing user details and credentials
+	 * @return formatted HTML string for the email body
+	 */
 	public static String getForgetPasswordMessage(HashMap<String, String> map) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("<HTML><BODY>");
@@ -29,6 +44,11 @@ public class EmailBuilder {
 		return msg.toString();
 	}
 
+	/**
+	 * Builds an HTML email message confirming a password change.
+	 * * @param map a hashmap containing user details and the new password
+	 * @return formatted HTML string for the email body
+	 */
 	public static String getChangePasswordMessage(HashMap<String, String> map) {
 		StringBuilder msg = new StringBuilder();
 		msg.append("<HTML><BODY>");

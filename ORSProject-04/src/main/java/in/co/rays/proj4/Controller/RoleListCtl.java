@@ -17,9 +17,19 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * RoleListCtl is a Servlet controller that manages the listing, searching, 
+ * and paginated displaying of system roles.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet(name = "RoleListCtl" , urlPatterns = {"/ctl/RoleListCtl"})
 public class RoleListCtl extends BaseCtl {
 
+	/**
+	 * Populates the RoleBean from the HTTP request parameters to establish search criteria.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing search filters
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -30,6 +40,13 @@ public class RoleListCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the role list with default pagination.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -62,6 +79,14 @@ public class RoleListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Handles HTTP POST requests to perform search, delete, reset, and pagination operations
+	 * on the role list.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -135,6 +160,10 @@ public class RoleListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Returns the view page associated with the Role List controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.ROLE_LIST_VIEW;

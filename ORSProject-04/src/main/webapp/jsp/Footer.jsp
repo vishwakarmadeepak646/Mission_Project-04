@@ -16,7 +16,6 @@
 	text-align: center;
 }
 </style>
-
 </head>
 <body>
 <div id="footer">

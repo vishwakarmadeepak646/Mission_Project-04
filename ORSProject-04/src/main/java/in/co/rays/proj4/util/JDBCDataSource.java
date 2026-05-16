@@ -8,14 +8,27 @@ import java.util.ResourceBundle;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+/**
+ * JDBCDataSource implements a robust Singleton design pattern to manage database 
+ * connectivity. It uses the c3p0 library to maintain a connection pool, enhancing 
+ * performance and scalability by reusing established connections.
+*  @author Deepak Vishwakarma
+ */
 public final class JDBCDataSource {
 
+	/** Singleton instance variable */
 	private static JDBCDataSource jds = null;
 
+	/** c3p0 Connection Pool DataSource */
 	private static ComboPooledDataSource cpds = null;
 
+	/** ResourceBundle for fetching database credentials */
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
+	/**
+	 * Private constructor to restrict instantiation from outside.
+	 * Initializes the c3p0 connection pool with settings from the properties file.
+	 */
 	private JDBCDataSource() {
 		try {
 			cpds = new ComboPooledDataSource();
@@ -32,6 +45,10 @@ public final class JDBCDataSource {
 		}
 	}
 
+	/**
+	 * Provides the global point of access to the JDBCDataSource instance.
+	 * * @return the singleton instance of JDBCDataSource
+	 */
 	public static JDBCDataSource getInstance() {
 		if (jds == null) {
 			jds = new JDBCDataSource();
@@ -39,6 +56,10 @@ public final class JDBCDataSource {
 		return jds;
 	}
 
+	/**
+	 * Retrieves an active connection from the connection pool.
+	 * * @return a Connection object, or null if an error occurs
+	 */
 	public static Connection getConnection() {
 		try {
 			return getInstance().cpds.getConnection();
@@ -47,6 +68,12 @@ public final class JDBCDataSource {
 		}
 	}
 
+	/**
+	 * Closes the provided database connection, statement, and result set resources safely.
+	 * * @param conn the connection to close
+	 * @param stmt the statement to close
+	 * @param rs the result set to close
+	 */
 	public static void closeConnection(Connection conn, Statement stmt, ResultSet rs) {
 		try {
 			if (rs != null) {
@@ -63,10 +90,19 @@ public final class JDBCDataSource {
 		}
 	}
 
+	/**
+	 * Closes the provided database connection and statement safely.
+	 * * @param conn the connection to close
+	 * @param stmt the statement to close
+	 */
 	public static void closeConnection(Connection conn, Statement stmt) {
 		closeConnection(conn, stmt, null);
 	}
 
+	/**
+	 * Closes the provided database connection safely.
+	 * * @param conn the connection to close
+	 */
 	public static void closeConnection(Connection conn) {
 		closeConnection(conn, null);
 	}

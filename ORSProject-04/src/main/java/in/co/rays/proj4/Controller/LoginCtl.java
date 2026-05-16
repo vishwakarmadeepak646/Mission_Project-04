@@ -16,13 +16,28 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * LoginCtl is a Servlet controller that handles user authentication. It manages
+ * sign-in, sign-up redirection, and user logout operations.
+ * 
+ * @author Deepak Vishwakarma
+ */
 @WebServlet("/LoginCtl")
 public class LoginCtl extends BaseCtl {
 
+	/** Operation constant for Sign In */
 	public static final String OP_SIGN_IN = "Sign In";
+	/** Operation constant for Sign Up */
 	public static final String OP_SIGN_UP = "Sign Up";
+	/** Operation constant for Logout */
 	public static final String OP_LOG_OUT = "Logout";
 
+	/**
+	 * Validates the input data provided on the login form. * @param request the
+	 * HTTP servlet request
+	 * 
+	 * @return true if validation passes, false otherwise
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -51,6 +66,12 @@ public class LoginCtl extends BaseCtl {
 
 	}
 
+	/**
+	 * Populates the UserBean from the HTTP request parameters. * @param request the
+	 * HTTP servlet request
+	 * 
+	 * @return the populated BaseBean object containing login credentials
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -62,6 +83,14 @@ public class LoginCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the login page and process logouts.
+	 * * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -76,6 +105,14 @@ public class LoginCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests to authenticate the user or redirect to
+	 * registration. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -111,7 +148,7 @@ public class LoginCtl extends BaseCtl {
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				return;
-			}  
+			}
 		} else if (OP_SIGN_UP.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
 			return;
@@ -121,6 +158,10 @@ public class LoginCtl extends BaseCtl {
 
 	}
 
+	/**
+	 * Returns the view page associated with the Login controller. * @return the
+	 * logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.LOGIN_VIEW;

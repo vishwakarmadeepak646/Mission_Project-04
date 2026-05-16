@@ -7,16 +7,18 @@
 <%@page import="in.co.rays.proj4.bean.TimetableBean"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Add Timetable</title>
+<link rel="icon" type="image/png"
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 
-<form action="<%=ORSView.TIMETABLE_CTL%>" method="POST">
+	<form action="<%=ORSView.TIMETABLE_CTL%>" method="POST">
 		<%@ include file="Header.jsp"%>
 
 		<jsp:useBean id="bean" class="in.co.rays.proj4.bean.TimetableBean"
@@ -90,8 +92,8 @@
 				</tr>
 				<tr>
 					<th align="left">Exam Date<span style="color: red">*</span></th>
-					<td><input type="date" id="udatee" style="width: 96%" name="examDate"
-						placeholder="Select Exam Date"
+					<td><input type="date" id="udatee" style="width: 96%"
+						name="examDate" placeholder="Select Exam Date"
 						value="<%=DataUtility.getDateString(bean.getExamDate())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("examDate", request)%></font></td>
 				</tr>

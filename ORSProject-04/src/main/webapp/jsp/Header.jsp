@@ -1,3 +1,4 @@
+<%@page import="in.co.rays.proj4.bean.RoleBean"%>
 <%@page import="in.co.rays.proj4.Controller.ORSView"%>
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -10,8 +11,11 @@
 
 <script src="/ORS_Project4/js/checkbox.js"></script>
 <script src="/ORS_Project4/js/datepicker.js"></script>
-</head>
+  <link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" /></head>
 <body>
+	<!-- Logo -->
+	<img src="<%=request.getContextPath()%>/img/customLogo.jpg"
+		align="right" width="100" height="40" border="0">
 	<%
 	UserBean user = (UserBean) session.getAttribute("user");
 	%>
@@ -23,33 +27,128 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
-	<a href="<%=ORSView.CHANGE_PASSWORD_CTL %>"><b>Change Password</a> |
-	<a href="<%=ORSView.ROLE_CTL%>">Add Role</a> |
-	<a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a> |
-	<a href="<%=ORSView.USER_CTL%>">Add User</a> |
-	<a href="<%=ORSView.USER_LIST_CTL%>">User List</a> |
-	<a href="<%=ORSView.COLLEGE_CTL%>">Add College</a> |
-	<a href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</a> |
-	<a href="<%=ORSView.STUDENT_CTL%>">Add Student</a> |
-	<a href="<%=ORSView.STUDENT_LIST_CTL%>">Student List</a> |
-	<a href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a> |
-	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a> |
-	<a href="<%=ORSView.COURSE_CTL%>">Add Course</a> |
-	<a href="<%=ORSView.COURSE_LIST_CTL%>">Course List</a> |
-	<a href="<%=ORSView.SUBJECT_CTL%>">Add Subject</a> |
-	<a href="<%=ORSView.SUBJECT_LIST_CTL%>">Subject List</a> |
-	<a href="<%=ORSView.TIMETABLE_CTL%>">Add Timetable</a> |
-	<a href="<%=ORSView.TIMETABLE_LIST_CTL%>">Timetable List</a> |
-	<a href="<%=ORSView.FACULTY_CTL%>">Add Faculty</a> |
-	<a href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a> |
+	<!-- Common menus -->
+	<a href="<%=ORSView.MY_PROFILE_CTL%>"><b>My Profile</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.CHANGE_PASSWORD_CTL%>"><b>Change Password</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.GET_MARKSHEET_CTL%>"><b>Get Marksheet</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.MARKSHEET_MERIT_LIST_CTL%>"><b>Marksheet Merit-List</b></a>
+	<b>|</b>
+	
+	<!-- Admin Only + Common Menus-->
+	<%
+	if (user.getRoleId() == RoleBean.ADMIN) {
+	%>
 
+	<a href="<%=ORSView.ROLE_CTL%>">Add Role</a>
+	<b>|</b>
+	<a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a>
+	<b>|</b>
+	<a href="<%=ORSView.USER_CTL%>">Add User</a>
+	<b>|</b>
+	<a href="<%=ORSView.USER_LIST_CTL%>">User List</a>
+	<b>|</b>
+	<a href="<%=ORSView.COLLEGE_CTL%>">Add College</a>
+	<b>|</b>
+	<a href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</a>
+	<b>|</b>
+	<a href="<%=ORSView.STUDENT_CTL%>">Add Student</a>
+	<b>|</b>
+	<a href="<%=ORSView.STUDENT_LIST_CTL%>">Student List</a>
+	<b>|</b>
+	<a href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a>
+	<b>|</b>
+	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a>
+	<b>|</b>
+	<a href="<%=ORSView.COURSE_CTL%>">Add Course</a>
+	<b>|</b>
+	<a href="<%=ORSView.COURSE_LIST_CTL%>">Course List</a>
+	<b>|</b>
+	<a href="<%=ORSView.SUBJECT_CTL%>">Add Subject</a>
+	<b>|</b>
+	<a href="<%=ORSView.SUBJECT_LIST_CTL%>">Subject List</a>
+	<b>|</b>
+	<a href="<%=ORSView.TIMETABLE_CTL%>">Add TimeTable</a>
+	<b>|</b>
+	<a href="<%=ORSView.TIMETABLE_LIST_CTL%>">TimeTable List</a>
+	<b>|</b>
+	<a href="<%=ORSView.FACULTY_CTL%>">Add Faculty</a>
+	<b>|</b>
+	<a href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a>
+	<b>|</b>
+	<a target="blank" href="<%=ORSView.JAVA_DOC%>"><b>Java Doc</b></a>
+	<b>|</b>
+	
+	<%
+	}
+	%>
+	<%
+	if (user.getRoleId() == RoleBean.STUDENT) {
+	%>
+	<a href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a>
+	<b>|</b>
+	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a>
+	<b>|</b>
+	<a href="<%=ORSView.COLLEGE_CTL%>">Add College</a>
+	<b>|</b>
+	<a href="<%=ORSView.COLLEGE_LIST_CTL%>">College List</a>
+	<b>|</b>
+	<a href="<%=ORSView.COURSE_CTL%>">Add Course</a>
+	<b>|</b>
+	<a href="<%=ORSView.COURSE_LIST_CTL%>">Course List</a>
+	<b>|</b>
+	<a href="<%=ORSView.SUBJECT_CTL%>">Add Subject</a>
+	<b>|</b>
+	<a href="<%=ORSView.SUBJECT_LIST_CTL%>">Subject List</a>
+	<b>|</b>
+	<a href="<%=ORSView.TIMETABLE_CTL%>">Add TimeTable</a>
+	<b>|</b>
+	<a href="<%=ORSView.TIMETABLE_LIST_CTL%>">TimeTable List</a>
+	<%
+	}
+	%>
+	<!-- Faculty + Common Menus -->
+	<%
+	if (user.getRoleId() == RoleBean.FACULTY) {
+	%>
+	<a href="<%=ORSView.STUDENT_CTL%>">Add Student</a>
+	<b>|</b>
+	<a href="<%=ORSView.STUDENT_LIST_CTL%>">Student List</a>
+	<b>|</b>
+	<a href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</a>
+	<b>|</b>
+	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</a>
+	<b>|</b>
+	<a href="<%=ORSView.COURSE_CTL%>">Add Course</a>
+	<b>|</b>
+	<a href="<%=ORSView.COURSE_LIST_CTL%>">Course List</a>
+	<b>|</b>
+	<a href="<%=ORSView.SUBJECT_CTL%>">Add Subject</a>
+	<b>|</b>
+	<a href="<%=ORSView.SUBJECT_LIST_CTL%>">Subject List</a>
+	<b>|</b>
+	<a href="<%=ORSView.FACULTY_CTL%>">Add Faculty</a>
+	<b>|</b>
+	<a href="<%=ORSView.FACULTY_LIST_CTL%>">Faculty List</a>
+	<b>|</b>
+	<a href="<%=ORSView.TIMETABLE_CTL%>">Add Timetable</a>
+	<b>|</b>
+	<a href="<%=ORSView.TIMETABLE_LIST_CTL%>">Timetable List</a>
+	<%
+	}
+	%>
+	<!-- Logout -->
 	<a href="<%=ORSView.LOGIN_CTL + "?operation=Logout"%>"><b>Logout</b></a>
 
 	<%
 	} else {
 	%>
+	<!-- Guest View -->
 	<h3>Hi, Guest</h3>
-	<a href="WelcomeCtl"><b>Welcome</b></a> |
+	<a href="<%=ORSView.WELCOME_CTL%>"><b>Welcome</b></a>
+	<b>|</b>
 	<a href="<%=ORSView.LOGIN_CTL%>"><b>Login</b></a>
 	<%
 	}

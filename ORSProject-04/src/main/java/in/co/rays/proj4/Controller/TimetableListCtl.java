@@ -18,9 +18,18 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * TimetableListCtl is a Servlet controller that manages the listing, searching, 
+ * and paginated display of Timetable records.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet (name = "TimetableListCtl" , urlPatterns = {"/ctl/TimetableListCtl"})
 public class TimetableListCtl extends BaseCtl {
 
+	/**
+	 * Pre-loads the lists of subjects and courses required for the search filter dropdowns.
+	 * * @param request the HTTP servlet request
+	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
 		SubjectModel subjectModel = new SubjectModel();
@@ -38,6 +47,13 @@ public class TimetableListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the timetable list with default pagination.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -70,6 +86,13 @@ public class TimetableListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Handles HTTP POST requests for searching, deleting, resetting, and paginating timetable records.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -148,6 +171,10 @@ public class TimetableListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Returns the view page associated with the Timetable List controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.TIMETABLE_LIST_VIEW;

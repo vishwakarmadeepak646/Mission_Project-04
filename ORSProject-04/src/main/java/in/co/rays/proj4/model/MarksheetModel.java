@@ -16,8 +16,21 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for Marksheet operations.
+ * 
+ * This class handles all database operations related to Marksheet such as add,
+ * update, delete, search, and find operations.
+ *  @author Deepak Vishwakarma
+ */
 public class MarksheetModel {
 
+	/**
+	 * Generates next primary key for st_marksheet table.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException if database exception occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -40,7 +53,15 @@ public class MarksheetModel {
 		return pk + 1;
 	}
 
-	public long add(MarksheetBean bean) throws ApplicationException , DuplicateRecordException {
+	/**
+	 * Adds new marksheet record into database.
+	 * 
+	 * @param bean MarksheetBean containing marksheet details
+	 * @return generated primary key
+	 * @throws ApplicationException     if application error occurs
+	 * @throws DuplicateRecordException if duplicate roll number exists
+	 */
+	public long add(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
 
@@ -48,9 +69,9 @@ public class MarksheetModel {
 		StudentBean studentBean = studentModel.findByPk(bean.getStudentId());
 		bean.setName(studentBean.getFirstName() + " " + studentBean.getLastName());
 
-		MarksheetBean exist = findByRollNo(bean.getRollNo());
+		MarksheetBean beanExist = findByRollNo(bean.getRollNo());
 
-		if (exist != null) {
+		if (beanExist != null && beanExist.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Roll Number already exists");
 		}
 
@@ -88,13 +109,19 @@ public class MarksheetModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing marksheet record.
+	 * 
+	 * @param bean MarksheetBean containing updated details
+	 * @throws ApplicationException     if application error occurs
+	 * @throws DuplicateRecordException if duplicate roll number exists
+	 */
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
-		
-		
-		MarksheetBean exist = findByRollNo(bean.getRollNo());
 
-		if (exist != null) {
+		MarksheetBean beanExist = findByRollNo(bean.getRollNo());
+
+		if (beanExist != null && beanExist.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Roll Number already exists");
 		}
 
@@ -102,7 +129,7 @@ public class MarksheetModel {
 		StudentBean studentBean = studentModel.findByPk(bean.getStudentId());
 
 		bean.setName(studentBean.getFirstName() + " " + studentBean.getLastName());
-		
+
 		try {
 
 			conn = JDBCDataSource.getConnection();
@@ -138,6 +165,12 @@ public class MarksheetModel {
 
 	}
 
+	/**
+	 * Deletes marksheet record from database.
+	 * 
+	 * @param bean MarksheetBean containing marksheet id
+	 * @throws ApplicationException if application error occurs
+	 */
 	public void delete(MarksheetBean bean) throws ApplicationException {
 		Connection conn = null;
 
@@ -165,6 +198,13 @@ public class MarksheetModel {
 
 	}
 
+	/**
+	 * Finds marksheet by primary key.
+	 * 
+	 * @param id marksheet primary key
+	 * @return MarksheetBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public MarksheetBean findByPk(long id) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where id = ?");
@@ -203,6 +243,13 @@ public class MarksheetModel {
 		return bean;
 	}
 
+	/**
+	 * Finds marksheet by roll number.
+	 * 
+	 * @param rollNo roll number
+	 * @return MarksheetBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public MarksheetBean findByRollNo(String rollNo) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where roll_no = ?");
@@ -240,10 +287,26 @@ public class MarksheetModel {
 
 		return bean;
 	}
-	public List<MarksheetBean> list() throws ApplicationException{
-		return search(null,0,0);
+
+	/**
+	 * Returns list of all marksheets.
+	 * 
+	 * @return list of marksheets
+	 * @throws ApplicationException if application error occurs
+	 */
+	public List<MarksheetBean> list() throws ApplicationException {
+		return search(null, 0, 0);
 	}
 
+	/**
+	 * Searches marksheet records based on criteria and pagination.
+	 * 
+	 * @param bean     MarksheetBean containing search criteria
+	 * @param pageNo   page number
+	 * @param PageSize number of records per page
+	 * @return list of matching marksheets
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<MarksheetBean> search(MarksheetBean bean, int pageNo, int PageSize) throws ApplicationException {
 
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where 1=1");
@@ -308,4 +371,42 @@ public class MarksheetModel {
 		return list;
 
 	}
+
+	public List<MarksheetBean> getMeritList(int pageNo, int pageSize) throws ApplicationException {
+
+		ArrayList<MarksheetBean> list = new ArrayList<MarksheetBean>();
+		StringBuffer sql = new StringBuffer(
+				"select id, roll_no, name, physics, chemistry, maths, (physics + chemistry + maths) as total from st_marksheet where physics > 33 and chemistry > 33 and maths > 33 order by total desc");
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+
+		Connection conn = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MarksheetBean bean = new MarksheetBean();
+				bean.setId(rs.getLong(1));
+				bean.setRollNo(rs.getString(2));
+				bean.setName(rs.getString(3));
+				bean.setPhysics(rs.getInt(4));
+				bean.setChemistry(rs.getInt(5));
+				bean.setMaths(rs.getInt(6));
+				list.add(bean);
+			}
+			rs.close();
+			pstmt.close();
+		} catch (Exception e) {
+			throw new ApplicationException("Exception in getting merit list of Marksheet");
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+		return list;
+	}
+
 }

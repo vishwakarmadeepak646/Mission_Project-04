@@ -1,6 +1,6 @@
+<%@page import="in.co.rays.proj4.Controller.CollegeListCtl"%>
 <%@page import="in.co.rays.proj4.util.HTMLUtility"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
-<%@page import="CollegeListCtl.CollegeListCtl"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="in.co.rays.proj4.bean.CollegeBean"%>
 <%@page import="java.util.List"%>
@@ -12,7 +12,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>College List</title>
-</head>
+  <link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" /></head>
 <body>
 	<%@include file="Header.jsp"%>
 

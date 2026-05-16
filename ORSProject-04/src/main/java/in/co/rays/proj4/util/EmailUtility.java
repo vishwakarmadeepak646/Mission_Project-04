@@ -13,8 +13,14 @@ import javax.mail.internet.MimeMessage;
 
 import in.co.rays.proj4.exception.ApplicationException;
 
+/**
+ * EmailUtility provides a utility to send emails from the application using 
+ * the JavaMail API and SMTP server properties defined in the system bundle.
+*  @author Deepak Vishwakarma
+ */
 public class EmailUtility {
 
+	/** ResourceBundle for reading SMTP configuration */
 	static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
 	private static final String SMTP_HOST_NAME = rb.getString("smtp.server");
@@ -24,6 +30,7 @@ public class EmailUtility {
 
 	private static Properties props = new Properties();
 
+	// Static block to initialize the mail properties
 	static {
 		props.put("mail.smtp.host", SMTP_HOST_NAME);
 		props.put("mail.smtp.auth", "true");
@@ -36,6 +43,11 @@ public class EmailUtility {
 		props.put("mail.smtp.socketFactory.fallback", "false");
 	}
 
+	/**
+	 * Sends an email using the provided EmailMessage object.
+	 * * @param emailMessageDTO the data object containing recipient, subject, and body content
+	 * @throws ApplicationException if the email sending process fails
+	 */
 	public static void sendMail(EmailMessage emailMessageDTO) throws ApplicationException {
 		try {
 			// Setup mail session
@@ -63,6 +75,12 @@ public class EmailUtility {
 		}
 	}
 
+	/**
+	 * Converts a comma-separated string of email addresses into an array of InternetAddress objects.
+	 * * @param emails the comma-separated string of recipients
+	 * @return array of parsed InternetAddresses
+	 * @throws Exception if parsing fails
+	 */
 	private static InternetAddress[] getInternetAddresses(String emails) throws Exception {
 		if (emails == null || emails.isEmpty()) {
 			return new InternetAddress[0];

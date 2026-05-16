@@ -2,6 +2,13 @@ package in.co.rays.proj4.bean;
 
 import java.util.Date;
 
+/**
+ * Bean class for Faculty entity.
+ * 
+ * This bean contains faculty related information.
+ * 
+ * @author Deepak Vishwakarma
+ */
 public class FacultyBean extends BaseBean {
 
 	private String firstName;
@@ -17,108 +24,231 @@ public class FacultyBean extends BaseBean {
 	private long subjectId;
 	private String subjectName;
 
-
+	/**
+	 * Returns first name.
+	 * 
+	 * @return first name
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * Sets first name.
+	 * 
+	 * @param firstName first name
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * Returns last name.
+	 * 
+	 * @return last name
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * Sets last name.
+	 * 
+	 * @param lastName last name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	/**
+	 * Returns date of birth.
+	 * 
+	 * @return date of birth
+	 */
 	public Date getDob() {
 		return dob;
 	}
 
+	/**
+	 * Sets date of birth.
+	 * 
+	 * @param dob date of birth
+	 */
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
+	/**
+	 * Returns gender.
+	 * 
+	 * @return gender
+	 */
 	public String getGender() {
 		return gender;
 	}
 
+	/**
+	 * Sets gender.
+	 * 
+	 * @param gender gender
+	 */
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
+	/**
+	 * Returns mobile number.
+	 * 
+	 * @return mobile number
+	 */
 	public String getMobileNo() {
 		return mobileNo;
 	}
 
+	/**
+	 * Sets mobile number.
+	 * 
+	 * @param mobileNo mobile number
+	 */
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
+	/**
+	 * Returns email.
+	 * 
+	 * @return email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets email.
+	 * 
+	 * @param email email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Returns college id.
+	 * 
+	 * @return college id
+	 */
 	public long getCollegeId() {
 		return collegeId;
 	}
 
+	/**
+	 * Sets college id.
+	 * 
+	 * @param collegeId college id
+	 */
 	public void setCollegeId(long collegeId) {
 		this.collegeId = collegeId;
 	}
 
+	/**
+	 * Returns college name.
+	 * 
+	 * @return college name
+	 */
 	public String getCollegeName() {
 		return collegeName;
 	}
 
+	/**
+	 * Sets college name.
+	 * 
+	 * @param collegeName college name
+	 */
 	public void setCollegeName(String collegeName) {
 		this.collegeName = collegeName;
 	}
 
+	/**
+	 * Returns course id.
+	 * 
+	 * @return course id
+	 */
 	public long getCourseId() {
 		return courseId;
 	}
 
+	/**
+	 * Sets course id.
+	 * 
+	 * @param courseId course id
+	 */
 	public void setCourseId(long courseId) {
 		this.courseId = courseId;
 	}
 
+	/**
+	 * Returns course name.
+	 * 
+	 * @return course name
+	 */
 	public String getCourseName() {
 		return courseName;
 	}
 
+	/**
+	 * Sets course name.
+	 * 
+	 * @param courseName course name
+	 */
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
 
+	/**
+	 * Returns subject id.
+	 * 
+	 * @return subject id
+	 */
 	public long getSubjectId() {
 		return subjectId;
 	}
 
+	/**
+	 * Sets subject id.
+	 * 
+	 * @param subjectId subject id
+	 */
 	public void setSubjectId(long subjectId) {
 		this.subjectId = subjectId;
 	}
 
+	/**
+	 * Returns subject name.
+	 * 
+	 * @return subject name
+	 */
 	public String getSubjectName() {
 		return subjectName;
 	}
 
+	/**
+	 * Sets subject name.
+	 * 
+	 * @param subjectName subject name
+	 */
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-	
+
+	/**
+	 * Returns display value.
+	 * 
+	 * @return display value
+	 */
 	@Override
 	public String getValue() {
-		
+
 		return null;
 	}
-
 
 }

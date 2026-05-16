@@ -9,6 +9,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link rel="icon" type="image/png"
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 	<%@include file="Header.jsp"%>
@@ -48,7 +50,7 @@
 				<tr>
 					<th>Last Name :</th>
 					<td><input type="text" name="lastName"
-					placeholder="Enter Last Name"
+						placeholder="Enter Last Name"
 						value="<%=DataUtility.getStringData(bean.getLastName())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("lastName", request)%></font></td>
 
@@ -56,7 +58,7 @@
 				<tr>
 					<th>Login Id :</th>
 					<td><input type="text" name="login"
-					placeholder="Enter Login Id"
+						placeholder="Enter Login Id"
 						value="<%=DataUtility.getStringData(bean.getLogin())%>"></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("login", request)%></font></td>
 
@@ -64,7 +66,7 @@
 				<tr>
 					<th>Password :</th>
 					<td><input type="password" name="password"
-					placeholder="Enter password"
+						placeholder="Enter password"
 						value="<%=DataUtility.getStringData(bean.getPassword())%>"></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("password", request)%></font></td>
 				</tr>
@@ -72,7 +74,7 @@
 				<tr>
 					<th>confirm Password :</th>
 					<td><input type="password" name="confirmPassword"
-					placeholder="Enter Confirm password"
+						placeholder="Enter Confirm password"
 						value="<%=DataUtility.getStringData(bean.getConfirmPassword())%>"></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("confirmPassword", request)%></font></td>
 				</tr>
@@ -80,7 +82,7 @@
 				<tr>
 					<th>Date of birth :</th>
 					<td><input type="date" name="dob" style="width: 98%"
-					placeholder="Enter Date of birth"
+						placeholder="Enter Date of birth"
 						value="<%=DataUtility.getDateString(bean.getDob())%>"></td>
 					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 				</tr>
@@ -99,7 +101,7 @@
 				<tr>
 					<th>Mobile:</th>
 					<td><input type="text" name="mobileNo"
-					placeholder="Enter mobile number"
+						placeholder="Enter mobile number"
 						value="<%=DataUtility.getStringData(bean.getMobileNo())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("mobileNo", request)%></font></td>
 				</tr>
@@ -108,7 +110,7 @@
 					<th></th>
 					<td><input type="submit" name="operation"
 						value="<%=UserRegistrationCtl.OP_SIGN_UP%>"> <input
-						type="reset" name="operation"
+						type="submit" name="operation"
 						value="<%=UserRegistrationCtl.OP_RESET%>"></td>
 
 				</tr>

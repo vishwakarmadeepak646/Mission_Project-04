@@ -23,9 +23,18 @@ import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * UserCtl is a Servlet controller that handles the addition, updating, 
+ * and viewing of user profile records (typically used by administrators).
+*  @author Deepak Vishwakarma
+ */
 @WebServlet (name = "UserCtl" , urlPatterns = {"/ctl/UserCtl"})
 public class UserCtl extends BaseCtl {
 
+	/**
+	 * Pre-loads the list of roles required for the user management form.
+	 * * @param request the HTTP servlet request
+	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
 		RoleModel roleModel = new RoleModel();
@@ -38,6 +47,12 @@ public class UserCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Validates input data entered by the user on the user form.
+	 * Includes complex checks for password strength, email formatting, and confirmation.
+	 * * @param request the HTTP servlet request
+	 * @return true if validation passes, false otherwise
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -121,6 +136,11 @@ public class UserCtl extends BaseCtl {
 		return pass;
 	}
 
+	/**
+	 * Populates the UserBean from the HTTP request parameters.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing user profile data
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -142,6 +162,14 @@ public class UserCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the user form, loading existing 
+	 * records if an ID is provided.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -161,6 +189,13 @@ public class UserCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests to save, update, cancel, or reset the user profile data.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -209,6 +244,10 @@ public class UserCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Returns the view page associated with the User controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.USER_VIEW;

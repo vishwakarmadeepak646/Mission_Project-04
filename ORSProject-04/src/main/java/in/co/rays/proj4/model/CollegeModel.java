@@ -15,8 +15,21 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for College operations.
+ * 
+ * This class handles all database operations related to College
+ * such as add, update, delete, search, and find operations.
+ *  @author Deepak Vishwakarma
+ */
 public class CollegeModel {
 
+	/**
+	 * Generates next primary key for st_college table.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException if database exception occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -45,13 +58,21 @@ public class CollegeModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds new college record into database.
+	 * 
+	 * @param bean CollegeBean containing college details
+	 * @return generated primary key
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if duplicate college exists
+	 */
 	public Integer add(CollegeBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
 
-		CollegeBean exist = findByName(bean.getName());
+		CollegeBean beanExist = findByName(bean.getName());
 
-		if (exist != null) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("College Name already exists");
 		}
 
@@ -92,13 +113,20 @@ public class CollegeModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing college record.
+	 * 
+	 * @param bean CollegeBean containing updated details
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if duplicate college exists
+	 */
 	public void update(CollegeBean bean) throws ApplicationException , DuplicateRecordException{
 
 		Connection conn = null;
 		
-		CollegeBean exist = findByName(bean.getName());
+		CollegeBean beanExist = findByName(bean.getName());
 
-		if (exist != null) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("College Name already exists");
 		}
 		
@@ -139,6 +167,12 @@ public class CollegeModel {
 		}
 	}
 
+	/**
+	 * Deletes college record from database.
+	 * 
+	 * @param bean CollegeBean containing college id
+	 * @throws ApplicationException if application error occurs
+	 */
 	public void delete(CollegeBean bean) throws ApplicationException {
 		Connection conn = null;
 
@@ -167,6 +201,13 @@ public class CollegeModel {
 		}
 	}
 
+	/**
+	 * Finds college by primary key.
+	 * 
+	 * @param pk college primary key
+	 * @return CollegeBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public CollegeBean findByPk(long pk) throws ApplicationException {
 		CollegeBean bean = null;
 		Connection conn = null;
@@ -205,6 +246,13 @@ public class CollegeModel {
 
 	}
 
+	/**
+	 * Finds college by name.
+	 * 
+	 * @param name college name
+	 * @return CollegeBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public CollegeBean findByName(String name) throws ApplicationException {
 		Connection conn = null;
 		CollegeBean bean = null;
@@ -241,11 +289,25 @@ public class CollegeModel {
 
 	}
 	
+	/**
+	 * Returns list of all colleges.
+	 * 
+	 * @return list of colleges
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<CollegeBean> list() throws ApplicationException{
 		return search(null, 0 , 0);
 	}
 	
-
+	/**
+	 * Searches college records based on criteria and pagination.
+	 * 
+	 * @param bean CollegeBean containing search criteria
+	 * @param PageNo page number
+	 * @param PageSize number of records per page
+	 * @return list of matching colleges
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<CollegeBean> search(CollegeBean bean, int PageNo, int PageSize)  throws ApplicationException{
 
 		StringBuffer sql = new StringBuffer("select * from st_college where 1=1");

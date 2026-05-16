@@ -9,6 +9,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add College</title>
+<link rel="icon" type="image/png"
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 	<%@include file="Header.jsp"%>
@@ -106,6 +108,7 @@
 				</tr>
 
 				<tr>
+					<th></th>
 					<%
 					if (bean != null && bean.getId() > 0) {
 					%>

@@ -20,9 +20,18 @@ import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * TimetableCtl is a Servlet controller that handles the creation, modification, 
+ * and viewing of individual Timetable records for examinations.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet(name = "TimetableCtl" , urlPatterns = {"/ctl/TimetableCtl"})
 public class TimetableCtl extends BaseCtl{
 
+	/**
+	 * Pre-loads the lists of subjects and courses required for the timetable form dropdowns.
+	 * * @param request the HTTP servlet request
+	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
 		SubjectModel subjectModel = new SubjectModel();
@@ -39,6 +48,13 @@ public class TimetableCtl extends BaseCtl{
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Validates input data entered by the user on the timetable form.
+	 * Ensures required fields are filled, dates are valid, and exams are not scheduled on Sundays.
+	 * * @param request the HTTP servlet request
+	 * @return true if validation passes, false otherwise
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -83,6 +99,11 @@ public class TimetableCtl extends BaseCtl{
 		return pass;
 	}
 
+	/**
+	 * Populates the TimetableBean from the HTTP request parameters.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing timetable data
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -101,6 +122,14 @@ public class TimetableCtl extends BaseCtl{
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the timetable form, loading existing 
+	 * records if an ID is provided.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -121,6 +150,14 @@ public class TimetableCtl extends BaseCtl{
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests to save, update, cancel, or reset the timetable form data.
+	 * Performs complex validation checks to prevent overlapping exams for the same course, subject, or semester.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -202,7 +239,10 @@ public class TimetableCtl extends BaseCtl{
 		ServletUtility.forward(getView(), request, response);
 	}
 
-	
+	/**
+	 * Returns the view page associated with the Timetable controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		// TODO Auto-generated method stub

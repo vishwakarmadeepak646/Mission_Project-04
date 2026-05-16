@@ -20,11 +20,23 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * UserRegistrationCtl is a Servlet controller that manages new user sign-ups.
+ * New users are typically registered with the default 'Student' role.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet(name = "UserRegistrationCtl" , urlPatterns = {"/UserRegistrationCtl"})
 public class UserRegistrationCtl extends BaseCtl {
 
+	/** Operation constant for Sign Up */
 	public static final String OP_SIGN_UP = "Sign Up";
 
+	/**
+	 * Validates input data entered by the new user on the registration form.
+	 * Checks for correct email format, password strength, and confirms password matches.
+	 * * @param request the HTTP servlet request
+	 * @return true if validation passes, false otherwise
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -99,9 +111,15 @@ public class UserRegistrationCtl extends BaseCtl {
 			pass = false;
 		}
 
-		return super.validate(request);
+		return pass;
 	}
 
+	/**
+	 * Populates the UserBean from the HTTP request parameters. Automatically sets 
+	 * the default RoleId to STUDENT.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing new user registration data
+	 */
 	@Override // get data from view and set into bean object
 	protected BaseBean populateBean(HttpServletRequest request) {
 		UserBean bean = new UserBean();
@@ -122,6 +140,13 @@ public class UserRegistrationCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the user registration form.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -129,12 +154,19 @@ public class UserRegistrationCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests to register the new user into the system.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
-
+		System.out.println("Inside Reset" + op);
 		UserModel model = new UserModel();
 
 		if (OP_SIGN_UP.equalsIgnoreCase(op)) {
@@ -155,12 +187,17 @@ public class UserRegistrationCtl extends BaseCtl {
 			}
 			ServletUtility.forward(getView(), request, response);
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
+			System.out.println("Inside Reset");
 			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
 			return;
 		}
 
 	}
 
+	/**
+	 * Returns the view page associated with the User Registration controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 

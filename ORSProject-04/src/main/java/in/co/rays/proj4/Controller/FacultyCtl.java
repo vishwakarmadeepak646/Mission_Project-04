@@ -21,9 +21,19 @@ import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet (name = "FacultyCtl" , urlPatterns = {"/ctl/FacultyCtl"})
+/**
+ * FacultyCtl is a Servlet controller that handles the addition, updating, and
+ * viewing of individual Faculty records.
+ * 
+ * @author Deepak Vishwakarma
+ */
+@WebServlet(name = "FacultyCtl", urlPatterns = { "/ctl/FacultyCtl" })
 public class FacultyCtl extends BaseCtl {
 
+	/**
+	 * Pre-loads the lists of colleges, subjects, and courses required for the
+	 * faculty registration/update form. * @param request the HTTP servlet request
+	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
 		CollegeModel collegeModel = new CollegeModel();
@@ -44,7 +54,13 @@ public class FacultyCtl extends BaseCtl {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Validates input data entered by the user on the faculty form. * @param
+	 * request the HTTP servlet request
+	 * 
+	 * @return true if validation passes, false otherwise
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -116,6 +132,12 @@ public class FacultyCtl extends BaseCtl {
 		return pass;
 	}
 
+	/**
+	 * Populates the FacultyBean from the HTTP request parameters. * @param request
+	 * the HTTP servlet request
+	 * 
+	 * @return the populated BaseBean object containing faculty data
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -137,6 +159,14 @@ public class FacultyCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the faculty form, loading existing
+	 * records if an ID is provided. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -157,6 +187,14 @@ public class FacultyCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests to save, update, cancel, or reset the faculty form
+	 * data. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -205,11 +243,14 @@ public class FacultyCtl extends BaseCtl {
 		}
 		ServletUtility.forward(getView(), request, response);
 	}
-	
-	
+
+	/**
+	 * Returns the view page associated with the Faculty controller. * @return the
+	 * logical view string
+	 */
 	@Override
 	protected String getView() {
-	
+
 		return ORSView.FACULTY_VIEW;
 	}
 

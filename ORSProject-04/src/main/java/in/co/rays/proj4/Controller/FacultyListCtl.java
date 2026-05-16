@@ -1,4 +1,5 @@
 package in.co.rays.proj4.Controller;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -17,9 +18,21 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "FacultyListCtl" , urlPatterns = {"/ctl/FacultyListCtl"})
-public class FacultyListCtl extends BaseCtl{
-	
+/**
+ * FacultyListCtl is a Servlet controller that manages the listing and searching
+ * of faculties. It handles pagination, search filters, and record deletion.
+ * 
+ * @author Deepak Vishwakarma
+ */
+@WebServlet(name = "FacultyListCtl", urlPatterns = { "/ctl/FacultyListCtl" })
+public class FacultyListCtl extends BaseCtl {
+
+	/**
+	 * Populates the FacultyBean from the HTTP request parameters to be used for
+	 * search filters. * @param request the HTTP servlet request
+	 * 
+	 * @return the populated BaseBean object containing search criteria
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -32,6 +45,14 @@ public class FacultyListCtl extends BaseCtl{
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the faculty list with default
+	 * pagination. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -63,6 +84,14 @@ public class FacultyListCtl extends BaseCtl{
 
 	}
 
+	/**
+	 * Handles HTTP POST requests for searching, deleting, and paginating faculty
+	 * records. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -141,7 +170,10 @@ public class FacultyListCtl extends BaseCtl{
 		}
 	}
 
-
+	/**
+	 * Returns the view page associated with the Faculty List controller. * @return
+	 * the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.FACULTY_LIST_VIEW;

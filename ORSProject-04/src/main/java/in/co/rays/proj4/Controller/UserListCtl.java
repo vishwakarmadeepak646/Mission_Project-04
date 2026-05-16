@@ -17,10 +17,18 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * UserListCtl is a Servlet controller that manages the listing, searching, 
+ * and paginated display of User profiles in the system.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet(name = "UserListCtl" , urlPatterns = {"/ctl/UserListCtl"})
 public class UserListCtl extends BaseCtl{
 
-	
+	/**
+	 * Pre-loads the list of roles required for the search filter dropdown.
+	 * * @param request the HTTP servlet request
+	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
 		RoleModel roleModel = new RoleModel();
@@ -32,6 +40,11 @@ public class UserListCtl extends BaseCtl{
 		}
 	}
 	
+	/**
+	 * Populates the UserBean from the HTTP request parameters to establish search criteria.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing search filters
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -44,6 +57,13 @@ public class UserListCtl extends BaseCtl{
 		return bean;
 	}
 	
+	/**
+	 * Handles HTTP GET requests to display the user list with default pagination.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -76,6 +96,13 @@ public class UserListCtl extends BaseCtl{
 		}
 	}
 	
+	/**
+	 * Handles HTTP POST requests for searching, deleting, resetting, and paginating user records.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -154,6 +181,10 @@ public class UserListCtl extends BaseCtl{
 		}
 	}
 
+	/**
+	 * Returns the view page associated with the User List controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.USER_LIST_VIEW;

@@ -16,10 +16,19 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-
+/**
+ * StudentListCtl is a Servlet controller that manages the listing and searching of students.
+ * It handles pagination, filtering criteria, and record deletion.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet (name = "StudentListCtl" , urlPatterns = {"/ctl/StudentListCtl"})
 public class StudentListCtl extends BaseCtl {
 
+	/**
+	 * Populates the StudentBean from the HTTP request parameters to be used for search filters.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing search criteria
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -32,6 +41,13 @@ public class StudentListCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the student list with default pagination.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -66,6 +82,13 @@ public class StudentListCtl extends BaseCtl {
 
 	}
 	
+	/**
+	 * Handles HTTP POST requests for searching, deleting, and paginating student records.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List list = null;
@@ -142,6 +165,10 @@ public class StudentListCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Returns the view page associated with the Student List controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 

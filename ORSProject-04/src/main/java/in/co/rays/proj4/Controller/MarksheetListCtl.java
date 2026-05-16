@@ -16,9 +16,22 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet (name = "MarksheetListCtl" , urlPatterns = {"/ctl/MarksheetListCtl"})
-public class MarksheetListCtl extends BaseCtl{
-	
+/**
+ * MarksheetListCtl is a Servlet controller that manages the listing and
+ * searching of marksheets. It provides pagination functionality and handles
+ * record deletion.
+ *
+ * @author Deepak Vishwakarma
+ */
+@WebServlet(name = "MarksheetListCtl", urlPatterns = { "/ctl/MarksheetListCtl" })
+public class MarksheetListCtl extends BaseCtl {
+
+	/**
+	 * Populates the MarksheetBean from the HTTP request parameters to establish
+	 * search criteria. * @param request the HTTP servlet request
+	 * 
+	 * @return the populated BaseBean object containing search filters
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -30,6 +43,14 @@ public class MarksheetListCtl extends BaseCtl{
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the marksheet list with default
+	 * pagination. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -62,6 +83,14 @@ public class MarksheetListCtl extends BaseCtl{
 		}
 	}
 
+	/**
+	 * Handles HTTP POST requests to perform search, delete, reset, and pagination
+	 * operations on the marksheet list. * @param request the HTTP servlet request
+	 * 
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -140,6 +169,10 @@ public class MarksheetListCtl extends BaseCtl{
 		}
 	}
 
+	/**
+	 * Returns the view page associated with the Marksheet List controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.MARKSHEET_LIST_VIEW;

@@ -8,7 +8,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-	<title>Add Role</title>
+<title>Add Role</title>
+<link rel="icon" type="image/png"
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 	<form action="<%=ORSView.ROLE_CTL%>" method="post">
@@ -42,7 +44,7 @@
 			<tr>
 				<th align="center">Name<span style="color: red">*</span></th>
 				<td align="center"><input type="text" name="name"
-					placeholder="Enter Role name"
+					style="width: 167px" placeholder="Enter Role name"
 					value="<%=DataUtility.getStringData(bean.getName())%>"></td>
 				<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("name", request)%>
 				</font></td>
@@ -63,22 +65,23 @@
 			<tr>
 				<th></th>
 				<%
-					if (bean != null && bean.getId() > 0) {
-					%>
-					<td align="left" colspan="2"><input type="submit"
-						name="operation" value="<%=RoleCtl.OP_UPDATE%>"> <input
-						type="submit" name="operation" value="<%=RoleCtl.OP_CANCEL%>">
-					</td>
-					<%
-					} else {
-					%>
-					<td align="left" colspan="2"><input type="submit"
-						name="operation" value="<%=RoleCtl.OP_SAVE%>"> <input
-						type="submit" name="operation" value="<%=RoleCtl.OP_RESET%>">
-					</td>
-					<%
-					}
-					%>
+				if (bean != null && bean.getId() > 0) {
+				%>
+				<td align="left" colspan="2"><input type="submit"
+					name="operation" value="<%=RoleCtl.OP_UPDATE%>"> <input
+					type="submit" name="operation" value="<%=RoleCtl.OP_CANCEL%>">
+				</td>
+				<%
+				} else {
+				%>
+				<td align="left" colspan="2"><input type="submit"
+					name="operation" value="<%=RoleCtl.OP_SAVE%>"> <input
+					type="submit" name="operation" value="<%=RoleCtl.OP_RESET%>">
+				</td>
+				<%
+				}
+				%>
+			
 		</table>
 	</form>
 	<%@ include file="Footer.jsp"%>

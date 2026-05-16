@@ -17,8 +17,21 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for Faculty operations.
+ * 
+ * This class handles all database operations related to Faculty
+ * such as add, update, delete, search, and find operations.
+ *  @author Deepak Vishwakarma
+ */
 public class FacultyModel {
 
+	/**
+	 * Generates next primary key for st_faculty table.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException if database exception occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 
 		Connection conn = null;
@@ -45,6 +58,14 @@ public class FacultyModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds new faculty record into database.
+	 * 
+	 * @param bean FacultyBean containing faculty details
+	 * @return generated primary key
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if duplicate email exists
+	 */
 	public long add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
@@ -62,9 +83,9 @@ public class FacultyModel {
 		SubjectBean subBean = subModel.findByPk(bean.getSubjectId());
 		bean.setSubjectName(subBean.getName());
 
-		FacultyBean existbean = findByEmail(bean.getEmail());
+		FacultyBean beanExist = findByEmail(bean.getEmail());
 
-		if (existbean != null) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("Email Id already exists");
 		}
 
@@ -111,13 +132,20 @@ public class FacultyModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing faculty record.
+	 * 
+	 * @param bean FacultyBean containing updated details
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if duplicate email exists
+	 */
 	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
 		
-		FacultyBean existbean = findByEmail(bean.getEmail());
+		FacultyBean beanExist = findByEmail(bean.getEmail());
 
-		if (existbean != null) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("Email Id already exists");
 		}
 
@@ -176,6 +204,12 @@ public class FacultyModel {
 
 	}
 
+	/**
+	 * Deletes faculty record from database.
+	 * 
+	 * @param bean FacultyBean containing faculty id
+	 * @throws ApplicationException if application error occurs
+	 */
 	public void delete(FacultyBean bean) throws ApplicationException {
 
 		Connection conn = null;
@@ -205,6 +239,13 @@ public class FacultyModel {
 		}
 	}
 
+	/**
+	 * Finds faculty by primary key.
+	 * 
+	 * @param pk faculty primary key
+	 * @return FacultyBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public FacultyBean findByPk(long pk) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_faculty where id= ?");
 		Connection conn = null;
@@ -248,6 +289,13 @@ public class FacultyModel {
 		return bean;
 	}
 
+	/**
+	 * Finds faculty by email ID.
+	 * 
+	 * @param email faculty email ID
+	 * @return FacultyBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public FacultyBean findByEmail(String email) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_faculty where email = ?");
 		Connection conn = null;
@@ -291,10 +339,25 @@ public class FacultyModel {
 		return bean;
 	}
 
-	
+	/**
+	 * Returns list of all faculty records.
+	 * 
+	 * @return list of faculty records
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<FacultyBean> list() throws ApplicationException{
 		return search(null,0,0);
 	}
+
+	/**
+	 * Searches faculty records based on criteria and pagination.
+	 * 
+	 * @param bean FacultyBean containing search criteria
+	 * @param PageNo page number
+	 * @param PageSize number of records per page
+	 * @return list of matching faculty records
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<FacultyBean> search(FacultyBean bean, int PageNo, int PageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from  st_faculty  where 1=1");
 

@@ -19,9 +19,18 @@ import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * StudentCtl is a Servlet controller that handles the addition, modification, 
+ * and viewing of individual Student records.
+*  @author Deepak Vishwakarma
+ */
 @WebServlet(name = "StudentCtl" , urlPatterns = {"/ctl/StudentCtl"})
 public class StudentCtl extends BaseCtl {
 
+	/**
+	 * Pre-loads the list of colleges required for the student registration/update form.
+	 * * @param request the HTTP servlet request
+	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
 
@@ -34,6 +43,11 @@ public class StudentCtl extends BaseCtl {
 		}
 	}
 
+	/**
+	 * Validates input data entered by the user on the student form.
+	 * * @param request the HTTP servlet request
+	 * @return true if validation passes, false otherwise
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -95,6 +109,11 @@ public class StudentCtl extends BaseCtl {
 
 	}
 
+	/**
+	 * Populates the StudentBean from the HTTP request parameters.
+	 * * @param request the HTTP servlet request
+	 * @return the populated BaseBean object containing student data
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 		StudentBean bean = new StudentBean();
@@ -113,6 +132,14 @@ public class StudentCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET requests to display the student form, loading existing 
+	 * records if an ID is provided.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -134,6 +161,13 @@ public class StudentCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST requests to save, update, cancel, or reset the student form data.
+	 * * @param request  the HTTP servlet request
+	 * @param response the HTTP servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -184,6 +218,10 @@ public class StudentCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Returns the view page associated with the Student controller.
+	 * * @return the logical view string
+	 */
 	@Override
 	protected String getView() {
 		return ORSView.STUDENT_VIEW;

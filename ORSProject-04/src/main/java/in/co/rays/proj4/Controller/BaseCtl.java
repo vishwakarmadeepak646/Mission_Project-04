@@ -13,6 +13,19 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * Base Controller class used to provide common functionality
+ * for all controller classes in the application.
+ * 
+ * This class handles:
+ * - Common operation constants
+ * - Validation handling
+ * - DTO population
+ * - Preloading data
+ * - Request processing
+ * 
+ * @author Deepak Vishwakarma
+ */
 public abstract class BaseCtl extends HttpServlet {
 
 	public static final String OP_SAVE = "Save";
@@ -34,21 +47,49 @@ public abstract class BaseCtl extends HttpServlet {
 
 	public static final String MSG_ERROR = "error";
 
+	/**
+	 * Validates input data entered by the user.
+	 * 
+	 * @param request HttpServletRequest object
+	 * @return true if validation passes otherwise false
+	 */
+	
 	// check input data enter by user
 	protected boolean validate(HttpServletRequest request) {
 		return true;
 	}
 
+	/**
+	 * Preloads data such as dropdown lists before request processing.
+	 * 
+	 * @param request HttpServletRequest object
+	 */
+	
 	// search pre_loaded data like drop_down list
 	protected void pre_loaded(HttpServletRequest request) {
 	}
 
+	/**
+	 * Populates bean object using request parameters.
+	 * 
+	 * @param request HttpServletRequest object
+	 * @return populated BaseBean object
+	 */
 	// get data from view and set into bean object
 	protected BaseBean populateBean(HttpServletRequest request) {
 
 		return null;
 	}
 
+	/**
+	 * Populates common DTO attributes like createdBy,
+	 * modifiedBy and timestamps.
+	 * 
+	 * @param dto BaseBean object
+	 * @param request HttpServletRequest object
+	 * @return populated BaseBean object
+	 */
+	
 	// Track the changes done by Admin/Student/College etc
 	protected BaseBean populateDTO(BaseBean dto, HttpServletRequest request) {
 
@@ -83,6 +124,16 @@ public abstract class BaseCtl extends HttpServlet {
 		return dto;
 	}
 
+	/**
+	 * Service method executed before every request.
+	 * Performs preloading and validation.
+	 * 
+	 * @param request HttpServletRequest object
+	 * @param response HttpServletResponse object
+	 * @throws ServletException if servlet error occurs
+	 * @throws IOException if input/output error occurs
+	 */
+	
 	// It will run first every time, whenever user send request
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -106,6 +157,11 @@ public abstract class BaseCtl extends HttpServlet {
 		super.service(request, response);
 	}
 
+	/**
+	 * Returns view page path.
+	 * 
+	 * @return JSP view path
+	 */
 	protected abstract String getView();
 
 }

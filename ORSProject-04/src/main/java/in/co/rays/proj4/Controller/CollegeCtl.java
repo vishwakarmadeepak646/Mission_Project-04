@@ -17,9 +17,18 @@ import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * Controller class used to manage College operations
+ * such as add, update, validation and display.
+ * 
+ * @author Deepak Vishwakarma
+ */
 @WebServlet(name = "CollegeCtl" , urlPatterns = {"/ctl/CollegeCtl"})
 public class CollegeCtl extends BaseCtl {
 
+	/**
+	 * Validates college form data.
+	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
@@ -64,6 +73,9 @@ public class CollegeCtl extends BaseCtl {
 	
 	
 
+	/**
+	 * Populates CollegeBean using request parameters.
+	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
@@ -79,6 +91,9 @@ public class CollegeCtl extends BaseCtl {
 		return bean;
 	}
 
+	/**
+	 * Handles HTTP GET request.
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -101,6 +116,9 @@ public class CollegeCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Handles HTTP POST request for save and update operations.
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -154,6 +172,9 @@ public class CollegeCtl extends BaseCtl {
 		ServletUtility.forward(getView(), request, response);
 	}
 
+	/**
+	 * Returns view page path.
+	 */
 	@Override
 	protected String getView() {
 

@@ -15,6 +15,8 @@
 	border-color: red;
 }
 </style>
+<link rel="icon" type="image/png"
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 	<form action="<%=ORSView.COURSE_CTL%>" method="post">
@@ -71,7 +73,7 @@
 
 				<tr>
 					<th align="left">Duration<span style="color: red">*</span></th>
-					<td width="170px">
+					<td width="172px">
 						<%
 						LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 						map.put("1 Year", "1 Year");

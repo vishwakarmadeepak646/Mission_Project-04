@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.mchange.util.DuplicateElementException;
+
 
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -19,8 +19,22 @@ import in.co.rays.proj4.util.EmailMessage;
 import in.co.rays.proj4.util.EmailUtility;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for User operations.
+ * 
+ * This class handles all database operations related to User management
+ * such as add, update, delete, authentication, password management,
+ * registration, and searching users.
+ * @author Deepak Vishwakarma
+ */
 public class UserModel {
 
+	/**
+	 * Generates the next primary key for the st_user table.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException if database error occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -44,16 +58,25 @@ public class UserModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds a new user record into database.
+	 * 
+	 * @param bean UserBean containing user details
+	 * @return generated primary key
+	 * @throws DuplicateRecordException if login already exists
+	 * @throws ApplicationException if application error occurs
+	 */
 	public long add(UserBean bean) throws DuplicateRecordException, ApplicationException {
 		StringBuffer sql = new StringBuffer("insert into st_user values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		int pk = 0;
 		Connection conn = null;
 
-		UserBean exist = findByLogin(bean.getLogin());
+		UserBean beanExist = findByLogin(bean.getLogin());
 
-		if (exist != null) {
-			throw new DuplicateElementException("Login id already exists");
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
+			throw new DuplicateRecordException("Login id already exists");
 		}
+		
 
 		try {
 			pk = nextPk();
@@ -95,14 +118,22 @@ public class UserModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing user details.
+	 * 
+	 * @param bean UserBean containing updated information
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if login already exists
+	 */
 	public void update(UserBean bean) throws ApplicationException , DuplicateRecordException{
 		Connection conn = null;
 		
-		UserBean existsBean = findByLogin(bean.getLogin());
+		UserBean beanExist = findByLogin(bean.getLogin());
 
-		if (existsBean != null && existsBean.getId()!=bean.getId()) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("Login id already exists");
 		}
+		
 
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -141,6 +172,12 @@ public class UserModel {
 		}
 	}
 
+	/**
+	 * Deletes user record from database.
+	 * 
+	 * @param bean UserBean containing user id
+	 * @throws ApplicationException if application error occurs
+	 */
 	public void delete(UserBean bean) throws ApplicationException {
 		Connection conn = null;
 
@@ -167,6 +204,13 @@ public class UserModel {
 
 	}
 
+	/**
+	 * Finds user by primary key.
+	 * 
+	 * @param pk user primary key
+	 * @return UserBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public UserBean findByPk(long pk) throws ApplicationException {
 		Connection conn = null;
 		UserBean bean = null;
@@ -206,6 +250,13 @@ public class UserModel {
 		return bean;
 	}
 
+	/**
+	 * Finds user by login ID.
+	 * 
+	 * @param login user login ID
+	 * @return UserBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public UserBean findByLogin(String login) throws ApplicationException {
 		Connection conn = null;
 		UserBean bean = null;
@@ -299,6 +350,13 @@ public class UserModel {
 	
 	/**
 	 * Changes user password.
+	 * 
+	 * @param id user id
+	 * @param oldPassword old password
+	 * @param newPassword new password
+	 * @return true if password changed successfully
+	 * @throws RecordNotFoundException if old password is invalid
+	 * @throws ApplicationException if application error occurs
 	 */
 	public boolean changePassword(Long id, String oldPassword, String newPassword)
 			throws RecordNotFoundException, ApplicationException {
@@ -340,6 +398,11 @@ public class UserModel {
 
 	/**
 	 * Sends password to user email (forgot password).
+	 * 
+	 * @param login user login ID
+	 * @return true if email sent successfully
+	 * @throws RecordNotFoundException if email does not exist
+	 * @throws ApplicationException if application error occurs
 	 */
 	public boolean forgetPassword(String login) throws RecordNotFoundException, ApplicationException {
 
@@ -373,7 +436,12 @@ public class UserModel {
 		return flag;
 	}
 
-	
+	/**
+	 * Returns list of all users.
+	 * 
+	 * @return list of users
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<UserBean> list() throws ApplicationException{
 		return search(null,0,0);
 	}
@@ -465,7 +533,12 @@ public class UserModel {
 	}
 	
 	/**
-	 * Registers a new user and sends email.
+	 * Registers a new user and sends registration email.
+	 * 
+	 * @param bean UserBean containing user details
+	 * @return generated primary key
+	 * @throws DuplicateRecordException if duplicate login exists
+	 * @throws ApplicationException if application error occurs
 	 */
 	public long registerUser(UserBean bean) throws DuplicateRecordException, ApplicationException {
 

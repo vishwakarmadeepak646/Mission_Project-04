@@ -15,8 +15,21 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for Course operations.
+ * 
+ * This class handles all database operations related to Course
+ * such as add, update, delete, search, and find operations.
+ *  @author Deepak Vishwakarma
+ */
 public class CourseModel {
 
+	/**
+	 * Generates next primary key for st_course table.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException if database exception occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 		int pk = 0;
 		Connection conn = null;
@@ -43,14 +56,22 @@ public class CourseModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds new course record into database.
+	 * 
+	 * @param bean CourseBean containing course details
+	 * @return generated primary key
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if duplicate course exists
+	 */
 	public long add(CourseBean bean) throws ApplicationException, DuplicateRecordException {
 		StringBuffer sql = new StringBuffer("insert into st_course values(?,?,?,?,?,?,?,?)");
 		Connection conn = null;
 		int pk = 0;
 
-		CourseBean exist = findByName(bean.getName());
+		CourseBean beanExist = findByName(bean.getName());
 
-		if (exist != null) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("Course name already exists");
 		}
 
@@ -88,15 +109,22 @@ public class CourseModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing course record.
+	 * 
+	 * @param bean CourseBean containing updated details
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if duplicate course exists
+	 */
 	public void update(CourseBean bean) throws ApplicationException , DuplicateRecordException{
 		StringBuffer sql = new StringBuffer(
 				"update st_course set name=?, duration = ?, description = ?, created_by =?, modified_by=?, created_datetime= ? , modified_datetime=? where id= ?");
 
 		Connection conn = null;
 		
-		CourseBean exist = findByName(bean.getName());
+		CourseBean beanExist = findByName(bean.getName());
 
-		if (exist != null) {
+		if (beanExist != null && beanExist.getId() !=bean.getId()) {
 			throw new DuplicateRecordException("Course name already exists");
 		}
 
@@ -135,6 +163,12 @@ public class CourseModel {
 
 	}
 
+	/**
+	 * Deletes course record from database.
+	 * 
+	 * @param bean CourseBean containing course id
+	 * @throws ApplicationException if application error occurs
+	 */
 	public void delete(CourseBean bean) throws ApplicationException {
 
 		Connection conn = null;
@@ -166,6 +200,13 @@ public class CourseModel {
 		}
 	}
 
+	/**
+	 * Finds course by primary key.
+	 * 
+	 * @param pk course primary key
+	 * @return CourseBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public CourseBean findByPk(long pk) throws ApplicationException {
 		CourseBean bean = null;
 		Connection conn = null;
@@ -199,6 +240,13 @@ public class CourseModel {
 		return bean;
 	}
 
+	/**
+	 * Finds course by name.
+	 * 
+	 * @param name course name
+	 * @return CourseBean object if found otherwise null
+	 * @throws ApplicationException if application error occurs
+	 */
 	public CourseBean findByName(String name) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_course where name = ?");
 		CourseBean bean = null;
@@ -233,10 +281,25 @@ public class CourseModel {
 		return bean;
 	}
 	
+	/**
+	 * Returns list of all courses.
+	 * 
+	 * @return list of courses
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<CourseBean> list() throws ApplicationException{
 		return search(null,0,0);
 	}
 
+	/**
+	 * Searches course records based on criteria and pagination.
+	 * 
+	 * @param bean CourseBean containing search criteria
+	 * @param pageNo page number
+	 * @param pageSize number of records per page
+	 * @return list of matching courses
+	 * @throws ApplicationException if application error occurs
+	 */
 	public List<CourseBean> search(CourseBean bean, int pageNo, int pageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_course where 1=1");
 

@@ -11,6 +11,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>RoleListView</title>
+<link rel="icon" type="image/png"
+	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
 	<%@include file="Header.jsp"%>
@@ -52,8 +54,7 @@
 				<td align="center"><label><b>Role : </b></label> <input
 					type="text" name="name" placeholder="Enter Role Name"
 					value="<%=DataUtility.getStringData(bean.getName())%>">
-					&nbsp; 
-					<input type="submit" name="operation"
+					&nbsp; <input type="submit" name="operation"
 					value="<%=RoleListCtl.OP_SEARCH%>">&nbsp; <input
 					type="submit" name="operation" value="<%=RoleListCtl.OP_RESET%>">
 				</td>

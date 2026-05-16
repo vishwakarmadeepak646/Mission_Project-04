@@ -4,16 +4,30 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * DataUtility is a utility class used to format and convert data types. 
+ * It handles string manipulation, numeric conversions, and date/time formatting.
+*  @author Deepak Vishwakarma
+ */
 public class DataUtility {
 
+	/** Default application date format */
 	public static final String APP_DATE_FORMAT = "yyyy-MM-dd";
 
+	/** Default application time format */
 	public static final String APP_TIME_FORMAT = "dd-MM-yyyy HH:mm:ss";
 
+	/** Date formatter instance */
 	private static final SimpleDateFormat formatter = new SimpleDateFormat(APP_DATE_FORMAT);
 
+	/** Time formatter instance */
 	private static final SimpleDateFormat timeFormatter = new SimpleDateFormat(APP_TIME_FORMAT);
 
+	/**
+	 * Trims leading and trailing spaces from a string.
+	 * * @param val the string to format
+	 * @return trimmed string, or the original null value
+	 */
 	public static String getString(String val) {
 		if (DataValidator.isNotNull(val)) {
 			return val.trim();
@@ -22,6 +36,11 @@ public class DataUtility {
 		}
 	}
 
+	/**
+	 * Converts an Object to a String.
+	 * * @param val the object to convert
+	 * @return string representation of the object, or empty string if null
+	 */
 	public static String getStringData(Object val) {
 		if (val != null) {
 			return val.toString();
@@ -30,6 +49,11 @@ public class DataUtility {
 		}
 	}
 
+	/**
+	 * Converts a String to an integer.
+	 * * @param val the string value
+	 * @return integer value, or 0 if conversion fails
+	 */
 	public static int getInt(String val) {
 		if (DataValidator.isInteger(val)) {
 			return Integer.parseInt(val);
@@ -38,6 +62,11 @@ public class DataUtility {
 		}
 	}
 
+	/**
+	 * Converts a String to a long.
+	 * * @param val the string value
+	 * @return long value, or 0 if conversion fails
+	 */
 	public static long getLong(String val) {
 		if (DataValidator.isLong(val)) {
 			return Long.parseLong(val);
@@ -46,6 +75,11 @@ public class DataUtility {
 		}
 	}
 
+	/**
+	 * Converts a String to a Date object using the application format.
+	 * * @param val the date string
+	 * @return Date object, or null if parsing fails
+	 */
 	public static Date getDate(String val) {
 		Date date = null;
 		try {
@@ -56,6 +90,11 @@ public class DataUtility {
 		return date;
 	}
 
+	/**
+	 * Converts a Date object to a String using the application format.
+	 * * @param date the Date object
+	 * @return formatted date string, or empty string if formatting fails
+	 */
 	public static String getDateString(Date date) {
 		try {
 			return formatter.format(date);
@@ -64,6 +103,11 @@ public class DataUtility {
 		return "";
 	}
 
+	/**
+	 * Converts a time string to a Timestamp object.
+	 * * @param val the time string
+	 * @return Timestamp object, or null if parsing fails
+	 */
 	public static Timestamp getTimestamp(String val) {
 		Timestamp timeStamp = null;
 		try {
@@ -74,6 +118,11 @@ public class DataUtility {
 		return timeStamp;
 	}
 
+	/**
+	 * Converts a time representation in milliseconds to a Timestamp.
+	 * * @param l time in milliseconds
+	 * @return Timestamp object
+	 */
 	public static Timestamp getTimestamp(long l) {
 		Timestamp timeStamp = null;
 		try {
@@ -84,6 +133,10 @@ public class DataUtility {
 		return timeStamp;
 	}
 
+	/**
+	 * Retrieves the current system Timestamp.
+	 * * @return current Timestamp
+	 */
 	public static Timestamp getCurrentTimestamp() {
 		Timestamp timeStamp = null;
 		try {
@@ -94,6 +147,11 @@ public class DataUtility {
 
 	}
 
+	/**
+	 * Extracts the time in milliseconds from a Timestamp object.
+	 * * @param tm the Timestamp object
+	 * @return time in milliseconds, or 0 if extraction fails
+	 */
 	public static long getTimestamp(Timestamp tm) {
 		try {
 			return tm.getTime();
@@ -102,6 +160,10 @@ public class DataUtility {
 		}
 	}
 
+	/**
+	 * Main method to test DataUtility methods.
+	 * * @param args command line arguments
+	 */
 	public static void main(String[] args) {
 		// Test getString
 		System.out.println("getString Test:");

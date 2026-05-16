@@ -7,8 +7,20 @@ import java.util.Set;
 import in.co.rays.proj4.bean.DropdownListBean;
 import in.co.rays.proj4.model.RoleModel;
 
+/**
+ * HTMLUtility is a utility class used to construct HTML UI components 
+ * (like drop-down lists) dynamically from backend data sources like Maps and Lists.
+*  @author Deepak Vishwakarma
+ */
 public class HTMLUtility {
 
+	/**
+	 * Generates an HTML Select drop-down menu based on a provided HashMap.
+	 * * @param name the HTML "name" attribute for the select tag
+	 * @param selectedVal the value that should be pre-selected
+	 * @param map the HashMap containing key-value pairs for the options
+	 * @return a string containing the complete HTML select element
+	 */
 	public static String getList(String name, String selectedVal, HashMap<String, String> map) {
 
 		StringBuffer sb = new StringBuffer(
@@ -31,6 +43,14 @@ public class HTMLUtility {
 		return sb.toString();
 	}
 
+	/**
+	 * Generates an HTML Select drop-down menu based on a provided List of beans 
+	 * implementing the DropdownListBean interface.
+	 * * @param name the HTML "name" attribute for the select tag
+	 * @param selectedVal the value that should be pre-selected
+	 * @param list the list of DropdownListBean implementations
+	 * @return a string containing the complete HTML select element
+	 */
 	public static String getList(String name, String selectedVal, List list) {
 
 		// Collections.sort(list);
@@ -59,6 +79,9 @@ public class HTMLUtility {
 		return sb.toString();
 	}
 
+	/**
+	 * Test method to generate and print a list populated by a Map.
+	 */
 	public static void testGetListByMap() {
 
 		HashMap<String, String> map = new HashMap<>();
@@ -71,6 +94,10 @@ public class HTMLUtility {
 		System.out.println(htmlSelectFromMap);
 	}
 
+	/**
+	 * Test method to generate and print a list populated by a List from a database model.
+	 * * @throws Exception if model extraction fails
+	 */
 	public static void testGetListByList() throws Exception {
 
 		RoleModel model = new RoleModel();
@@ -86,6 +113,11 @@ public class HTMLUtility {
 		System.out.println(htmlSelectFromList);
 	}
 
+	/**
+	 * Main method to trigger HTMLUtility tests.
+	 * * @param args command line arguments
+	 * @throws Exception if an error occurs during execution
+	 */
 	public static void main(String[] args) throws Exception {
 
 		// testGetListByMap();
