@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Welcome Page</title>
+<!-- <link> : Used to connect external resources with webpage and rel stand for relationship rel="ion" means "This file is website icon" -->
+
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
+	
 </head>
 <body>
 	<%@ include file="Header.jsp"%>

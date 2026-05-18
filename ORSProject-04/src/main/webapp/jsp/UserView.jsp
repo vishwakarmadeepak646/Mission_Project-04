@@ -11,6 +11,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Add User</title>
+<!-- Favicon: Small icon shown in browser tab. -->
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
