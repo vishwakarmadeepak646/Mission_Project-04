@@ -16,6 +16,14 @@
 <title>User List</title>
 <link rel="icon" type="image/png"
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+<script src="/ORSProject-04/js/datepicker.js"></script>
+<script src="<%=ORSView.APP_CONTEXT%>/js/checkbox.js"></script>
 </head>
 <body>
 	<%@include file="Header.jsp"%>
@@ -110,8 +118,8 @@
 					<td style="text-align: center; text-transform: capitalize;"><%=bean.getGender()%></td>
 					<td style="text-align: center;"><%=date%></td>
 					<td style="text-align: center; text-transform: capitalize;"><%=roleBean.getName()%></td>
-					<td style="text-align: center;"><a
-						href="UserCtl?id=<%=bean.getId()%>"
+					<td style="text-align: center;">
+					<a href="UserCtl?id=<%=bean.getId()%>"
 						<%=(user.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) ? "onclick='return false;'" : ""%>>Edit</a>
 					</td>
 				</tr>

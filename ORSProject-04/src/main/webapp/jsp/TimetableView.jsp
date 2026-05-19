@@ -92,7 +92,7 @@
 				</tr>
 				<tr>
 					<th align="left">Exam Date<span style="color: red">*</span></th>
-					<td><input type="date" id="udatee" style="width: 96%"
+					<td><input type="text" id="udatee" style="width: 96%"
 						name="examDate" placeholder="Select Exam Date"
 						value="<%=DataUtility.getDateString(bean.getExamDate())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("examDate", request)%></font></td>

@@ -9,9 +9,15 @@
 <meta charset="ISO-8859-1">
 <title>Header</title>
 
-<script src="/ORS_Project4/js/checkbox.js"></script>
-<script src="/ORS_Project4/js/datepicker.js"></script>
-  <link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" /></head>
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+<script src="/ORSProject-04/js/checkbox.js"></script>
+<script src="/ORSProject-04/js/datepicker.js"></script>
+</head>
 <body>
 	<!-- Logo -->
 	<img src="<%=request.getContextPath()%>/img/customLogo.jpg"

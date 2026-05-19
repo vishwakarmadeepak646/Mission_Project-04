@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 
 import in.co.rays.proj4.bean.BaseBean;
@@ -30,6 +32,9 @@ import in.co.rays.proj4.util.ServletUtility;
  */
 @WebServlet (name = "UserCtl" , urlPatterns = {"/ctl/UserCtl"})
 public class UserCtl extends BaseCtl {
+	
+	/** Log4j Logger */
+	private static final Logger log = Logger.getLogger(UserCtl.class);
 
 	/**
 	 * Pre-loads the list of roles required for the user management form.
@@ -37,12 +42,15 @@ public class UserCtl extends BaseCtl {
 	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
+		log.debug("UserCtl preload() called");
 		RoleModel roleModel = new RoleModel();
 		try {
 			List<RoleBean> roleList = roleModel.list();
 			System.out.println("roleList size ==> " + roleList.size());
 			request.setAttribute("roleList", roleList);
+			log.info("Preloaded role list, size=" + roleList.size());
 		} catch (ApplicationException e) {
+			log.error("ApplicationException in doPost() SAVE", e);
 			e.printStackTrace();
 		}
 	}
@@ -55,7 +63,7 @@ public class UserCtl extends BaseCtl {
 	 */
 	@Override
 	protected boolean validate(HttpServletRequest request) {
-
+		log.debug("UserCtl validate() called");
 		boolean pass = true;
 
 		if (DataValidator.isNull(request.getParameter("firstName"))) {
@@ -133,6 +141,8 @@ public class UserCtl extends BaseCtl {
 			pass = false;
 		}
 
+		log.debug("Validation result: " + pass);
+
 		return pass;
 	}
 
@@ -143,7 +153,7 @@ public class UserCtl extends BaseCtl {
 	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
-
+		log.debug("UserCtl populateBean() called");
 		UserBean bean = new UserBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
@@ -172,7 +182,7 @@ public class UserCtl extends BaseCtl {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		log.info("UserCtl doGet() started");
 		long id = DataUtility.getLong(request.getParameter("id"));
 
 		UserModel model = new UserModel();
@@ -181,12 +191,15 @@ public class UserCtl extends BaseCtl {
 			try {
 				UserBean bean = model.findByPk(id);
 				ServletUtility.setBean(bean, request);
+				log.info("Loaded UserBean for id=" + id);
 			} catch (ApplicationException e) {
+				log.error("ApplicationException in doGet()", e);
 				e.printStackTrace();
 				return;
 			}
 		}
 		ServletUtility.forward(getView(), request, response);
+		log.info("doGet() forwarded to view: " + getView());
 	}
 
 	/**
@@ -198,7 +211,7 @@ public class UserCtl extends BaseCtl {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		log.info("UserCtl doPost() started");
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		UserModel model = new UserModel();
@@ -211,37 +224,47 @@ public class UserCtl extends BaseCtl {
 				long pk = model.add(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("User added successfully", request);
+				log.info("User registered successfully, pk=" + pk);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Login Id already exists", request);
+				log.warn("Duplicate login during registration: " + bean.getLogin());
 			} catch (ApplicationException e) {
+				log.error("ApplicationException in doPost() SAVE", e);
 				e.printStackTrace();
 				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			log.debug("Operation: UPDATE");
 			UserBean bean = (UserBean) populateBean(request);
 			try {
+				
 				if (id > 0) {
 					model.update(bean);
-					System.out.println("Inside update");
+				log.info("User updated successfully, id = " + id);
 				}
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("User updated successfully", request);
 			} catch (DuplicateRecordException e) {
+				log.warn("Duplicate login during update: " + bean.getLogin());
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setErrorMessage("Login Id already exists", request);
 			} catch (ApplicationException e) {
+				log.error("ApplicationException in doPost() UPDATE", e);
 				e.printStackTrace();
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+			log.info("Operation: CANCEL, redirecting to USER_LIST_CTL");
 			ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
 			return;
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
+			log.info("Operation: RESET, redirecting to USER_CTL");
 			ServletUtility.redirect(ORSView.USER_CTL, request, response);
 			return;
 		}
 		ServletUtility.forward(getView(), request, response);
+		log.info("doPost() forwarded to view: " + getView());
 	}
 
 	/**
@@ -250,6 +273,7 @@ public class UserCtl extends BaseCtl {
 	 */
 	@Override
 	protected String getView() {
+		log.debug("Returning User view page");
 		return ORSView.USER_VIEW;
 	}
 

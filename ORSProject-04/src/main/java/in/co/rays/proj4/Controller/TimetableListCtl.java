@@ -46,6 +46,21 @@ public class TimetableListCtl extends BaseCtl {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	 @Override
+	    protected BaseBean populateBean(HttpServletRequest request) {
+
+	       
+
+	        TimetableBean bean = new TimetableBean();
+
+	        bean.setCourseId(DataUtility.getLong(request.getParameter("courseId")));
+	        bean.setSubjectId(DataUtility.getLong(request.getParameter("subjectId")));
+	        bean.setExamDate(DataUtility.getDate(request.getParameter("examDate")));
+
+	        return bean;
+	    }
 
 	/**
 	 * Handles HTTP GET requests to display the timetable list with default pagination.
@@ -111,6 +126,7 @@ public class TimetableListCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 		String[] ids = request.getParameterValues("ids");
+		System.out.println("Operation --->" + op);
 
 		try {
 

@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -25,17 +27,23 @@ import in.co.rays.proj4.util.ServletUtility;
 @WebServlet(name = "UserListCtl" , urlPatterns = {"/ctl/UserListCtl"})
 public class UserListCtl extends BaseCtl{
 
+	/** Log4j Logger */
+	private static final Logger log = Logger.getLogger(UserListCtl.class);
+	
 	/**
 	 * Pre-loads the list of roles required for the search filter dropdown.
 	 * * @param request the HTTP servlet request
 	 */
 	@Override
 	protected void pre_loaded(HttpServletRequest request) {
+		log.debug("UserListCtl preload() called");
 		RoleModel roleModel = new RoleModel();
 		try {
 			List roleList = roleModel.list();
 			request.setAttribute("roleList", roleList);
+			log.info("Preloaded role list, size=" + roleList.size());
 		} catch (ApplicationException e) {
+			log.error("ApplicationException in preload()", e);
 			e.printStackTrace();
 		}
 	}
@@ -47,7 +55,7 @@ public class UserListCtl extends BaseCtl{
 	 */
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
-
+		log.debug("UserListCtl populateBean() called");
 		UserBean bean = new UserBean();
 
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
@@ -67,7 +75,7 @@ public class UserListCtl extends BaseCtl{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		log.info("UserListCtl doGet() started");
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
@@ -80,6 +88,7 @@ public class UserListCtl extends BaseCtl{
 
 			if (list == null || list.isEmpty()) {
 				ServletUtility.setErrorMessage("No record found", request);
+				log.info("No record found during initial search");
 			}
 
 			ServletUtility.setList(list, request);
@@ -89,8 +98,10 @@ public class UserListCtl extends BaseCtl{
 			request.setAttribute("nextListSize", next.size());
 
 			ServletUtility.forward(getView(), request, response);
+			log.info("doGet() forwarded to view: " + getView());
 
 		} catch (ApplicationException e) {
+			log.error("ApplicationException in doGet()", e);
 			e.printStackTrace();
 			return;
 		}
@@ -107,6 +118,7 @@ public class UserListCtl extends BaseCtl{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		log.info("UserListCtl doPost() started");
 		List list = null;
 		List next = null;
 
@@ -128,13 +140,17 @@ public class UserListCtl extends BaseCtl{
 
 				if (OP_SEARCH.equalsIgnoreCase(op)) {
 					pageNo = 1;
+					log.debug("Search operation, resetting pageNo to 1");
 				} else if (OP_NEXT.equalsIgnoreCase(op)) {
 					pageNo++;
+					log.debug("Next operation, incrementing pageNo to " + pageNo);
 				} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
 					pageNo--;
+					log.debug("Previous operation, decrementing pageNo to " + pageNo);
 				}
 
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
+				log.info("New operation, redirecting to USER_CTL");
 				ServletUtility.redirect(ORSView.USER_CTL, request, response);
 				return;
 
@@ -146,16 +162,20 @@ public class UserListCtl extends BaseCtl{
 						deletebean.setId(DataUtility.getInt(id));
 						model.delete(deletebean);
 						ServletUtility.setSuccessMessage("User deleted successfully", request);
+						log.info("Deleted user with id=" + id);
 					}
 				} else {
 					ServletUtility.setErrorMessage("Select at least one record", request);
+					log.warn("Delete operation attempted with no selection");
 				}
 
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
+				log.info("Reset operation, redirecting to USER_LIST_CTL");
 				ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
 				return;
 
 			} else if (OP_BACK.equalsIgnoreCase(op)) {
+				log.info("Back operation, redirecting to USER_LIST_CTL");
 				ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
 				return;
 			}
@@ -165,6 +185,7 @@ public class UserListCtl extends BaseCtl{
 
 			if (list == null || list.size() == 0) {
 				ServletUtility.setErrorMessage("No record found ", request);
+				log.info("No record found on page " + pageNo);
 			}
 
 			ServletUtility.setList(list, request);
@@ -174,8 +195,10 @@ public class UserListCtl extends BaseCtl{
 			request.setAttribute("nextListSize", next.size());
 
 			ServletUtility.forward(getView(), request, response);
+			log.info("doPost() forwarded to view: " + getView());
 
 		} catch (ApplicationException e) {
+			log.error("ApplicationException in doPost()", e);
 			e.printStackTrace();
 			return;
 		}
@@ -187,6 +210,7 @@ public class UserListCtl extends BaseCtl{
 	 */
 	@Override
 	protected String getView() {
+		log.debug("Returning UserList view page");
 		return ORSView.USER_LIST_VIEW;
 	}
 }

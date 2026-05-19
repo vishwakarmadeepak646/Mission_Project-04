@@ -497,7 +497,7 @@ public class TimetableModel {
 				sql.append(" and id = " + bean.getId());
 			}
 			if (bean.getCourseId() > 0) {
-				sql.append("and course_id = " + bean.getCourseId());
+				sql.append(" and course_id = " + bean.getCourseId());
 			}
 			if (bean.getCourseName() != null && bean.getCourseName().length() > 0) {
 				sql.append(" and course_name like'" + bean.getCourseName() + " %'");
@@ -564,7 +564,7 @@ public class TimetableModel {
 			pstmt.close();
 
 		} catch (Exception e) {
-			throw new ApplicationException("Exception : Exception in search Timetable");
+			throw new ApplicationException("Exception : Exception in search Timetable" + e.getMessage());
 		}finally {
 			JDBCDataSource.closeConnection(conn);
 		}
