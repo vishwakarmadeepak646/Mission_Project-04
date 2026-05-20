@@ -1,3 +1,5 @@
+<%@page import="in.co.rays.proj4.util.HTMLUtility"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="in.co.rays.proj4.Controller.UserRegistrationCtl"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
@@ -98,14 +100,18 @@
 				</tr>
 
 				<tr>
-					<th>Gender :</th>
-					<td><select style="width: 169px; text-align-last: center;"
-						class='form-control' name='gender'>
-							<option selected value="">------------Select------------</option>
-							<option value="male">Male</option>
-							<option value="female">Female</option>
-					</select></td>
-					<td style="position: fixed;"><font color="red"><%=ServletUtility.getErrorMessage("gender", request)%></font></td>
+					<th align="left">Gender<span style="color: red">*</span></th>
+					<td>
+						<%
+						HashMap<String, String> map = new HashMap<String, String>();
+						map.put("Female", "Female");
+						map.put("Male", "Male");
+
+						String htmlList = HTMLUtility.getList("gender", bean.getGender(), map);
+						%> <%=htmlList%>
+
+					</td>
+					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("gender", request)%></font></td>
 				</tr>
 
 				<tr>
