@@ -40,9 +40,10 @@
 	<b>|</b>
 	<a href="<%=ORSView.GET_MARKSHEET_CTL%>"><b>Get Marksheet</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.MARKSHEET_MERIT_LIST_CTL%>"><b>Marksheet Merit-List</b></a>
+	<a href="<%=ORSView.MARKSHEET_MERIT_LIST_CTL%>"><b>Marksheet
+			Merit-List</b></a>
 	<b>|</b>
-	
+
 	<!-- Admin Only + Common Menus-->
 	<%
 	if (user.getRoleId() == RoleBean.ADMIN) {
@@ -86,7 +87,9 @@
 	<b>|</b>
 	<a target="blank" href="<%=ORSView.JAVA_DOC%>"><b>Java Doc</b></a>
 	<b>|</b>
-	
+	<a href="<%=ORSView.MODULE_CTL%>"><b>Module</b></a>
+	<b>|</b>
+
 	<%
 	}
 	%>
@@ -156,6 +159,7 @@
 	<a href="<%=ORSView.WELCOME_CTL%>"><b>Welcome</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.LOGIN_CTL%>"><b>Login</b></a>
+
 	<%
 	}
 	%>

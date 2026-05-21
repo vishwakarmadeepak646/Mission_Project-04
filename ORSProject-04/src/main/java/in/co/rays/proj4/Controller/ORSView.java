@@ -7,12 +7,18 @@ package in.co.rays.proj4.Controller;
  * * @author Deepak Vishwakarma
  */
 public interface ORSView {
+	
+	
 
 	/** Application context path */
 	public String APP_CONTEXT = "/ORSProject-04";
 
 	/** Directory folder path for all JSP pages */
 	public String PAGE_FOLDER = "/jsp";
+	
+	/** Module Page view and controller paths */
+	public String MODULE_VIEW = PAGE_FOLDER + "/ModuleView.jsp";
+	public String MODULE_CTL = APP_CONTEXT + "/ctl/ModuleCtl";
 
 	/** Path to the JavaDoc index */
 	public String JAVA_DOC = APP_CONTEXT + "/doc/index.html";
@@ -124,5 +130,15 @@ public interface ORSView {
 	/** Error view and controller paths */
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
+	
+	
+	//-------------------------------Module Paths------------------------------
+	/** Meeting view and controller paths */
+	public String MEETING_VIEW = PAGE_FOLDER + "/MeetingView.jsp";
+	public String MEETING_CTL = APP_CONTEXT + "/ctl/MeetingCtl";
+
+	/** Meeting List view and controller paths */
+	public String MEETING_LIST_VIEW = PAGE_FOLDER + "/MeetingListView.jsp";
+	public String MEETING_LIST_CTL = APP_CONTEXT + "/ctl/MeetingListCtl";
 
 }
