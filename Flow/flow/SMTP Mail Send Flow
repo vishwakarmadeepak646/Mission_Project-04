@@ -1,0 +1,32 @@
+SMTP protocol ka use kiya jata hai mail send karne ke liye
+# Email Send Flow:
+
+01. Sabse pehle project me mail bhejne ke liye dependency add ki gayi:
+    javax.mail (mail dependency) pom.xml me add ki, aur system.properties me SMTP ke parameters set kiye.
+
+02. Humne 3 custom classes banayi:
+    - EmailMessage → email ka data hold karta hai (to, subject, message)
+    - EmailUtility → mail send karne ka kaam karta hai
+    - EmailBuilder → mail ka content (HTML message) banata hai
+
+03. EmailBuilder class ka use karke mail ka message generate kiya jata hai:
+    jaise getUserRegistrationMessage(), getForgetPasswordMessage(), getChangePasswordMessage().
+
+04. EmailMessage class me mail ke attributes set kiye jate hain:
+    - to (kisko mail bhejna hai)
+    - subject
+    - message (EmailBuilder se aaya hua content)
+
+05. EmailUtility class me sendMail() method banayi gayi jisme actual mail send hota hai.
+
+
+06. sendMail() method me JavaMail ki predefined classes ka use kiva jata hai (6 classes):
+    - Session
+    - Authenticator
+    - PasswordAuthentication
+    - Message
+    - MimeMessage
+    - Transport
+
+07. Finally:
+    Transport.send(msg) method call karke mail SMTP server ke through mail send kiya jata hai.

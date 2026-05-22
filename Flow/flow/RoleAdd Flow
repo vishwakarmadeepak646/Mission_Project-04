@@ -1,0 +1,73 @@
+# Role Add Flow:
+
+01. User Role form (RoleView.jsp) par Name aur Description fill karta hai aur Save button par click karta hai.
+
+02. Form submit hone par request RoleCtl par jati hai.
+
+03. Sabse pehle BaseCtl ki service() method call hoti hai.
+
+04. service() method me operation parameter nikala jata hai.
+
+05. Agar operation SAVE hai aur CANCEL/RESET/VIEW/DELETE nahi hai tab validate(request) method call hota hai.
+
+06. validate() method (RoleCtl me override) call hota hai:
+    - name null check
+    - name format check
+    - description null check
+
+07. Agar validation fail hoti hai to:
+    - request.setAttribute() me error message set hota hai
+    - request wapas RoleView.jsp par forward ho jati hai
+
+08. Agar validation pass ho jati hai to control RoleCtl ke doPost() method me jata hai.
+
+09. doPost() method me operation check hota hai:
+    if (OP_SAVE.equalsIgnoreCase(op))
+
+10. populateBean(request) call hota hai aur RoleBean object create hota hai jisme:
+    - id
+    - name
+    - description
+    - createdBy, modifiedBy
+    - createdDatetime, modifiedDatetime set hote hain
+
+11. RoleModel ka object banaya jata hai:
+    RoleModel model = new RoleModel();
+
+12. model.add(bean) method call hoti hai.
+
+13. RoleModel.add() method me:
+    - findByName(bean.getName()) call hoti hai (duplicate check)
+
+14. Agar same role name already exist karta hai to:
+    - DuplicateRecordException throw hoti hai
+
+15. Agar duplicate nahi milta:
+    - nextPk() se next id generate hoti hai
+    - database connection liya jata hai
+    - autoCommit false kiya jata hai
+
+16. PreparedStatement banakar query execute hoti hai:
+    insert into st_role values(...)
+
+17. pstmt.executeUpdate() call hota hai aur record database me insert ho jata hai.
+
+18. conn.commit() call hota hai aur transaction complete ho jata hai.
+
+19. Control wapas RoleCtl ke doPost() me aata hai.
+
+20. ServletUtility.setBean(bean, request) call hota hai.
+
+21. ServletUtility.setSuccessMessage("Data is successfully saved", request) set kiya jata hai.
+
+22. Agar DuplicateRecordException aati hai to:
+    - ServletUtility.setErrorMessage("Role already exists", request) set hota hai
+
+23. Last me:
+    ServletUtility.forward(getView(), request, response) call hota hai.
+
+24. Request wapas RoleView.jsp par forward hoti hai.
+
+25. JSP par:
+    - Success ya Error message display hota hai
+    - Input values dubara show hoti hain

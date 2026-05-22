@@ -1,0 +1,48 @@
+# Static Dropdown Preload Flow (Using Map - Gender):
+
+01. JSP me dropdown ke liye HashMap banaya jata hai:
+    HashMap<String, String> map = new HashMap<>();
+
+02. Map me static values add ki jati hain:
+    map.put("Male", "Male");
+    map.put("Female", "Female");
+
+03. HTMLUtility.getList() method call hoti hai:
+    HTMLUtility.getList("gender", bean.getGender(), map)
+
+04. getList(name, selectedVal, map) method call hoti hai.
+
+05. StringBuffer object banaya jata hai:
+    <select name='gender'>
+
+06. Default option add kiya jata hai:
+    <option selected value=''>-------------Select-------------</option>
+
+07. Map ke keys nikale jate hain:
+    Set<String> keys = map.keySet();
+
+08. Loop chalaya jata hai:
+    for (String key : keys)
+
+09. Har key ke liye:
+    - val = map.get(key)
+
+10. Check kiya jata hai:
+    if (key.equals(selectedVal))
+
+11. Agar selected value match karti hai:
+    <option selected value='key'>val</option>
+
+12. Agar match nahi karti:
+    <option value='key'>val</option>
+
+13. Loop complete hone ke baad:
+    </select> close kiya jata hai
+
+14. Final HTML dropdown string return hoti hai.
+
+15. JSP me:
+    returned HTML directly render hoti hai.
+
+16. Final output:
+    Static dropdown (Gender) user ko display hota hai.

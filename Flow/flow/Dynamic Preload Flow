@@ -1,0 +1,67 @@
+# Role Dynamic Preload Complete Flow:
+
+01. User Add/Update page open karta hai:
+    URL → UserCtl
+
+02. Request UserCtl par jati hai aur BaseCtl ki service() method call hoti hai.
+
+03. service() method me sabse pehle preload(request) method call hoti hai.
+
+04. preload() method UserCtl me override hoti hai.
+
+05. preload() method me RoleModel ka object banaya jata hai:
+    RoleModel roleModel = new RoleModel();
+
+06. roleModel.list() method call hoti hai:
+    - ye database se saare roles fetch karti hai
+
+07. list() method internally search(null, 0, 0) call karti hai.
+
+08. RoleModel.search() method me SQL query banti hai:
+    select * from st_role where 1=1
+
+09. Query execute hoti hai aur database se sab Role records fetch hote hain.
+
+10. Har record ko RoleBean object me map kiya jata hai:
+    - id set hota hai
+    - name set hota hai
+    - description set hota hai
+
+11. Saare RoleBean objects ko List me add kiya jata hai.
+
+12. Ye List<RoleBean> preload() method ko return hoti hai.
+
+13. preload() method me:
+    request.setAttribute("roleList", roleList) set kiya jata hai.
+
+14. JSP me:
+    List roleList = (List) request.getAttribute("roleList") se list get hoti hai.
+
+15. HTMLUtility.getList("roleId", selectedValue, roleList) method call hoti hai.
+
+16. HTMLUtility.getList() method me:
+    - StringBuffer se <select> tag create hota hai
+    - default option add hota hai
+
+22. Loop chalaya jata hai:
+    for (DropdownListBean obj : roleList)
+
+17. Har RoleBean ke liye:
+    - key = obj.getKey() → id
+    - value = obj.getValue() → role name
+
+18. Har role ke liye option tag banaya jata hai:
+    <option value='id'>role name</option>
+
+19. Agar koi value selected hai to:
+    us option me "selected" attribute add hota hai
+
+20. Loop complete hone ke baad:
+    </select> close kiya jata hai
+
+21. Final dropdown HTML string return hoti hai.
+
+28. JSP me ye HTML render hoti hai.
+
+29. Final output:
+    Role dropdown dynamically database se load ho kar user form me display hota hai.

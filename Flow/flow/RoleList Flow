@@ -1,0 +1,54 @@
+# Role List View Flow:
+
+01. Header.jsp me Role List ka link banaya gaya:
+    <a href="<%=ORSView.ROLE_LIST_CTL%>">Role List</a>
+
+02. User ne Role List link par click kiya.
+
+03. Request RoleListCtl par gayi aur doGet() method call hui.
+
+04. doGet() method me default values set ki gayi:
+    - pageNo = 1
+    - pageSize = PropertyReader se liya gaya
+
+05. populateBean(request) call hua aur RoleBean me search parameters (name, roleId) set hue.
+
+06. RoleModel ka object banaya gaya:
+    RoleModel model = new RoleModel();
+
+07. model.search(bean, pageNo, pageSize) call hua:
+    - database se role list fetch hui
+
+08. next page check karne ke liye:
+    model.search(bean, pageNo + 1, pageSize) call hua
+
+09. Agar list null ya empty hai to:
+    ServletUtility.setErrorMessage("No record found", request) set kiya gaya
+
+10. Retrieved data ko request me set kiya gaya:
+    - ServletUtility.setList(list, request)
+    - ServletUtility.setPageNo(pageNo, request)
+    - ServletUtility.setPageSize(pageSize, request)
+    - ServletUtility.setBean(bean, request)
+    - request.setAttribute("nextListSize", next.size())
+
+11. ServletUtility.forward(getView(), request, response) call hua.
+
+12. Request RoleListView.jsp par forward hui.
+
+13. JSP par:
+    - ServletUtility.getList(request) se list get ki gayi
+    - Iterator se list loop ki gayi:
+        Iterator<RoleBean> it = list.iterator();
+
+14. while loop me har RoleBean ka data print kiya gaya:
+    - name → bean.getName()
+    - description → bean.getDescription()
+
+15. Table me har record ek row ke form me display hua.
+
+16. S.No calculate hua:
+    index = ((pageNo - 1) * pageSize) + 1
+
+17. Final output:
+    Role list table format me user ko display ho gayi.

@@ -1,0 +1,17 @@
+Q1:- What is Project-4 ?
+Ans:- Project4 is a Online Result system (ORSProject) that maintain Student result, College, faculty and student records and also maintain exam time table.
+
+Q2:- How you create Project-4 ?
+Ans:- For creating project-4 make a maven-project and put dependencies in pom.xml file and follows MVC Architecture.
+
+Q3:- What is the full form of MVC ?
+Ans:- MVC = Model View Controller.
+
+Q4:- What is MVC Architecture ?
+Ans: TODO
+
+Q4:- What is full Form of pom.xml ?
+Ans:- POM = Project Object Model.
+
+Q5:- How many dependency in you pom.xml file and there version ?
+Ans:- TODO

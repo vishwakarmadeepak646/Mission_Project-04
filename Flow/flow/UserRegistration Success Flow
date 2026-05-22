@@ -1,0 +1,46 @@
+# User Registration Success Flow:
+
+01. User ne Registration form fill kiya aur Sign Up button par click kiya.
+
+02. Request UserRegistrationCtl par gayi aur BaseCtl ki service() method call hui.
+
+03. service() method me operation parameter nikala gaya aur validate(request) call hua.
+
+04. validate() method ne sab input fields check kiye aur validation successful (true) return kiya.
+
+05. Control UserRegistrationCtl ke doPost() method me gaya.
+
+06. doPost() method me populateBean(request) call hua aur UserBean object create hua jisme form data set hua.
+
+07. UserModel ka object banaya gaya:
+    UserModel model = new UserModel();
+
+08. model.add(bean) method call kiya gaya.
+
+09. UserModel.add() method me:
+    - Duplicate check hua (findByLogin)
+    - Koi duplicate nahi mila
+
+10. nextPk() method se next primary key generate ki gayi.
+
+11. Database connection liya gaya aur autoCommit false kiya gaya.
+
+12. PreparedStatement banaya gaya aur user data insert kiya gaya:
+    insert into st_user values(...)
+
+13. pstmt.executeUpdate() call hua aur record database me successfully insert ho gaya.
+
+14. conn.commit() call hua aur transaction commit ho gaya.
+
+15. Control wapas UserRegistrationCtl ke doPost() method me aaya.
+
+16. ServletUtility.setBean(bean, request) call kiya gaya taaki entered data JSP par show ho sake.
+
+17. ServletUtility.setSuccessMessage("Registration successful!", request) set kiya gaya.
+
+18. ServletUtility.forward(getView(), request, response) call hua.
+
+19. Request wapas UserRegistration.jsp par forward hui.
+
+20. JSP par:
+    ServletUtility.getSuccessMessage(request) se "Registration successful!" message display hua.

@@ -1,0 +1,35 @@
+# User Registration Business Validation Flow (Duplicate Record):
+
+01. User ne form submit kiya aur input validation successfully pass ho gayi.
+
+02. Request UserRegistrationCtl ke doPost() method me aayi.
+
+03. doPost() method me populateBean(request) view ka data get kiya or UserBean me set kiya.
+    UserBean bean = (UserBean) populateBean(request);
+
+04. UserModel ka object banaya gaya:
+    UserModel model = new UserModel();
+
+05. model.add(bean) method call kiya gaya.
+
+06. UserModel.add() method me sabse pehle existing record check kiya gaya:
+    UserBean existbean = findByLogin(bean.getLogin());
+
+07. findByLogin() method database me query chala kar check karti hai ki same login id already exist karti hai ya nahi. :contentReference[oaicite:0]{index=0}
+
+08. Agar existbean null nahi hai (matlab login already exist karta hai) to:
+    throw new DuplicateRecordException("Login Id already exists");
+
+09. Ye exception wapas UserRegistrationCtl ke doPost() method me catch hoti hai.
+
+10. catch (DuplicateRecordException e) block me:
+    - ServletUtility.setBean(bean, request) call hota hai
+    - ServletUtility.setErrorMessage("Login id already exists", request) set kiya jata hai
+
+11. Uske baad:
+    ServletUtility.forward(getView(), request, response) call hota hai
+
+12. Request wapas UserRegistration.jsp par forward hoti hai.
+
+13. JSP par:
+    ServletUtility.getErrorMessage(request) se "Login id already exists" message show hota hai.

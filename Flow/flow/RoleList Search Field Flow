@@ -1,0 +1,57 @@
+# Role List Search Flow (By Name):
+
+01. RoleListView.jsp me search field banayi gayi:
+    <input type="text" name="name" placeholder="Enter Role Name">
+
+02. User name enter karta hai aur Search button par click karta hai.
+
+03. Form submit hota hai aur request RoleListCtl ke doPost() method me jati hai.
+
+04. doPost() method me:
+    - pageNo aur pageSize request se liye jate hain
+    - operation parameter nikala jata hai
+
+05. Check kiya jata hai:
+    if (OP_SEARCH.equalsIgnoreCase(op))
+
+06. OP_SEARCH hone par:
+    pageNo = 1 set kiya jata hai (search hamesha first page se start hota hai)
+
+07. populateBean(request) call hota hai:
+    - RoleBean me name set hota hai (search value)
+
+08. RoleModel ka object banaya jata hai:
+    RoleModel model = new RoleModel();
+
+09. model.search(bean, pageNo, pageSize) call hota hai.
+
+10. RoleModel.search() method me SQL query banti hai:
+    select * from st_role where 1=1
+
+11. Agar bean.getName() empty nahi hai:
+    SQL me condition add hoti hai:
+    and name like 'searchValue%'
+
+12. Query execute hoti hai aur matching records database se fetch hote hain.
+
+13. Retrieved list controller me aati hai.
+
+14. Agar list empty hoti hai:
+    ServletUtility.setErrorMessage("No record found", request) set hota hai.
+
+15. Data request me set kiya jata hai:
+    - setList(list)
+    - setPageNo(pageNo)
+    - setPageSize(pageSize)
+    - setBean(bean)
+
+16. next page check ke liye:
+    model.search(bean, pageNo + 1, pageSize) call hota hai
+    aur nextListSize set kiya jata hai
+
+17. ServletUtility.forward(getView(), request, response) call hota hai.
+
+18. Request wapas RoleListView.jsp par forward hoti hai.
+
+19. JSP par:
+    - list ko iterate karke sirf matching records display kiye jate hain

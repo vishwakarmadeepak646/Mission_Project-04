@@ -1,0 +1,60 @@
+# User Registration Input Validation Flow:
+
+01. User Registration form par Sign Up button par click kiya.
+   - form tag me <form action="<%=ORSView.USER_REGISTRATION_CTL%>" method="post"> 
+
+02. Request UserRegistrationCtl par gayi aur sabse pehle BaseCtl ki service() method call hui.
+
+03. service() method me request se operation parameter nikala gaya.
+
+04. Agar operation null nahi hai tabhi validate(request) method call hota hai.
+
+05. validate() method parent (BaseCtl) ka nahi balki child class (UserRegistrationCtl) ka call hota hai (method overriding).
+
+06. validate() method (UserRegistrationCtl me) me har input field ki validation start hui.
+
+07. firstName ko check kiya:
+    - agar null → "firstName is required"
+    - agar invalid format → "Invalid First Name"
+
+08. lastName ko check kiya:
+    - null aur valid name check kiya
+
+09. login ko check kiya:
+    - null aur email format validate kiya
+
+10. password ko check kiya:
+    - null check
+    - length (8–12) check
+    - pattern (uppercase, lowercase, digit, special char) check
+
+11. confirmPassword ko check kiya:
+    - null check kiya
+
+12. password aur confirmPassword ko compare kiya:
+    - agar match nahi → error set kiya
+
+13. gender ko check kiya:
+    - null check kiya
+
+14. dob ko check kiya:
+    - null check
+    - valid date format check kiya
+
+15. mobileNo ko check kiya:
+    - null check
+    - 10 digit length check
+    - valid mobile format check kiya
+
+16. Har validation fail hone par:
+    - request.setAttribute("fieldName", "error message") set kiya gaya
+    - pass = false kiya gaya
+
+17. Agar koi bhi validation fail hoti hai to validate() method false return karta hai.
+
+18. BaseCtl.service() me:
+    - ServletUtility.forward(getView(), request, response) call hota hai
+    - request wapas JSP par forward hoti hai
+
+19. JSP par:
+    - ServletUtility.getErrorMessage("key", request) se error messages show hote hain

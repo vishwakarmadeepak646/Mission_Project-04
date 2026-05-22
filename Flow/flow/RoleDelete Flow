@@ -1,0 +1,58 @@
+# Role List Delete Flow:
+
+01. RoleListView.jsp me har record ke saath checkbox diya gaya:
+    <input type="checkbox" name="ids" value="<%=bean.getId()%>">
+
+02. User ek ya multiple records select karta hai aur Delete button par click karta hai.
+
+03. Form submit hota hai aur request RoleListCtl ke doPost() method me jati hai.
+
+04. doPost() method me:
+    - pageNo aur pageSize request se liye jate hain
+    - operation parameter nikala jata hai
+
+05. ids array get kiya jata hai:
+    String[] ids = request.getParameterValues("ids");
+
+06. Check kiya jata hai:
+    if (OP_DELETE.equalsIgnoreCase(op))
+
+07. Agar ids null nahi hai aur length > 0 hai:
+    - ek RoleBean object banaya jata hai (deletebean)
+
+08. for loop chalaya jata hai:
+    for (String id : ids)
+
+09. Har id ke liye:
+    - deletebean.setId(DataUtility.getInt(id))
+    - model.delete(deletebean) call hota hai
+
+10. RoleModel.delete() method me:
+    - database connection liya jata hai
+    - SQL query execute hoti hai:
+        delete from st_role where id = ?
+
+11. pstmt.executeUpdate() call hota hai aur record database se delete ho jata hai.
+
+12. conn.commit() call hota hai aur transaction complete hota hai.
+
+13. Loop complete hone ke baad:
+    ServletUtility.setSuccessMessage("Data is deleted successfully", request) set hota hai.
+
+14. Agar user ne koi record select nahi kiya:
+    ServletUtility.setErrorMessage("Select at least one record", request) set hota hai.
+
+15. Fir dubara:
+    model.search(bean, pageNo, pageSize) call hota hai updated list ke liye.
+
+16. Updated list request me set ki jati hai:
+    - setList
+    - setPageNo
+    - setPageSize
+    - setBean
+
+17. ServletUtility.forward(getView(), request, response) call hota hai.
+
+18. Request wapas RoleListView.jsp par forward hoti hai.
+
+19. JSP par updated list show hoti hai jisme deleted records nahi hote.
