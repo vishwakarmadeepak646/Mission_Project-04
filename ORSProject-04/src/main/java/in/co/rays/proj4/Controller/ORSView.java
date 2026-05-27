@@ -133,12 +133,19 @@ public interface ORSView {
 	
 	
 	//-------------------------------Module Paths------------------------------
-	/** Meeting view and controller paths */
+	
 	public String MEETING_VIEW = PAGE_FOLDER + "/MeetingView.jsp";
 	public String MEETING_CTL = APP_CONTEXT + "/ctl/MeetingCtl";
 
-	/** Meeting List view and controller paths */
+	
 	public String MEETING_LIST_VIEW = PAGE_FOLDER + "/MeetingListView.jsp";
 	public String MEETING_LIST_CTL = APP_CONTEXT + "/ctl/MeetingListCtl";
 
+	
+	public String HOSPITAL_VIEW = PAGE_FOLDER + "/HospitalView.jsp";
+	public String HOSPITAL_CTL = APP_CONTEXT + "/ctl/HospitalCtl";
+
+	
+	public String HOSPITAL_LIST_VIEW = PAGE_FOLDER + "/HospitalListView.jsp";
+	public String HOSPITAL_LIST_CTL = APP_CONTEXT + "/ctl/HospitalListCtl";
 }

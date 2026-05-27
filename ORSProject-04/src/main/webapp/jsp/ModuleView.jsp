@@ -36,6 +36,12 @@
 	
 	<a href="<%=ORSView.MEETING_LIST_CTL%>">List Meeting</a>
 	<b>|</b>
+	
+	<a href="<%=ORSView.HOSPITAL_CTL%>">Add Hospital</a>
+	<b>|</b>
+	
+	<a href="<%=ORSView.HOSPITAL_LIST_CTL%>">List Hospital</a>
+	<b>|</b>
 	<hr>
 
 	<br>
