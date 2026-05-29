@@ -1,21 +1,19 @@
 package in.co.rays.proj4.Controller;
 
 /**
- * ORSView is an interface containing constants that map to all view pages (JSPs)
- * and controller paths in the application. It provides a centralized location 
- * for navigation routing, preventing hardcoded URL strings throughout the project.
- * * @author Deepak Vishwakarma
+ * ORSView is an interface containing constants that map to all view pages
+ * (JSPs) and controller paths in the application. It provides a centralized
+ * location for navigation routing, preventing hardcoded URL strings throughout
+ * the project. * @author Deepak Vishwakarma
  */
 public interface ORSView {
-	
-	
 
 	/** Application context path */
 	public String APP_CONTEXT = "/ORSProject-04";
 
 	/** Directory folder path for all JSP pages */
 	public String PAGE_FOLDER = "/jsp";
-	
+
 	/** Module Page view and controller paths */
 	public String MODULE_VIEW = PAGE_FOLDER + "/ModuleView.jsp";
 	public String MODULE_CTL = APP_CONTEXT + "/ctl/ModuleCtl";
@@ -130,22 +128,30 @@ public interface ORSView {
 	/** Error view and controller paths */
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
-	
-	
-	//-------------------------------Module Paths------------------------------
-	
+
+	// -------------------------------Module Paths------------------------------
+
 	public String MEETING_VIEW = PAGE_FOLDER + "/MeetingView.jsp";
 	public String MEETING_CTL = APP_CONTEXT + "/ctl/MeetingCtl";
 
-	
 	public String MEETING_LIST_VIEW = PAGE_FOLDER + "/MeetingListView.jsp";
 	public String MEETING_LIST_CTL = APP_CONTEXT + "/ctl/MeetingListCtl";
 
-	
 	public String HOSPITAL_VIEW = PAGE_FOLDER + "/HospitalView.jsp";
 	public String HOSPITAL_CTL = APP_CONTEXT + "/ctl/HospitalCtl";
 
-	
 	public String HOSPITAL_LIST_VIEW = PAGE_FOLDER + "/HospitalListView.jsp";
 	public String HOSPITAL_LIST_CTL = APP_CONTEXT + "/ctl/HospitalListCtl";
+
+	public String INSURANCE_VIEW = PAGE_FOLDER + "/InsuranceView.jsp";
+	public String INSURANCE_CTL = APP_CONTEXT + "/ctl/InsuranceCtl";
+
+	public String INSURANCE_LIST_VIEW = PAGE_FOLDER + "/InsuranceListView.jsp";
+	public String INSURANCE_LIST_CTL = APP_CONTEXT + "/ctl/InsuranceListCtl";
+
+	public String EVENT_MANAGEMENT_VIEW = PAGE_FOLDER + "/EventManagementView.jsp";
+	public String EVENT_MANAGEMENT_CTL = APP_CONTEXT + "/ctl/EventManagementCtl";
+
+	public String EVENT_MANAGEMENT_LIST_VIEW = PAGE_FOLDER + "/EventManagementListView.jsp";
+	public String EVENT_MANAGEMENT_LIST_CTL = APP_CONTEXT + "/ctl/EventManagementListCtl";
 }

@@ -42,6 +42,16 @@
 	
 	<a href="<%=ORSView.HOSPITAL_LIST_CTL%>">List Hospital</a>
 	<b>|</b>
+	
+	<a href="<%=ORSView.INSURANCE_CTL%>"><b>Add Insurance</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.INSURANCE_LIST_CTL%>"><b>List Insurance</b></a>
+	
+	
+		<a href="<%=ORSView.EVENT_MANAGEMENT_CTL%>"><b>Add Event</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.EVENT_MANAGEMENT_LIST_CTL%>"><b>List Events</b></a>
+	
 	<hr>
 
 	<br>

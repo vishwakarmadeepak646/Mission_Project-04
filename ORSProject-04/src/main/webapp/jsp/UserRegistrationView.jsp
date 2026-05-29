@@ -100,7 +100,7 @@
 				</tr>
 
 				<tr>
-					<th align="left">Gender<span style="color: red">*</span></th>
+					<th >Gender : </th>
 					<td>
 						<%
 						HashMap<String, String> map = new HashMap<String, String>();
