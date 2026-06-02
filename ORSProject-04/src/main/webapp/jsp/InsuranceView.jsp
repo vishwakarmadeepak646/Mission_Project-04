@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="<%=ORSView.INSURANCE_CTL%>" method="post">
-        <%@ include file="Header.jsp"%>
+        <%@ include file="Header2.jsp"%>
         <jsp:useBean id="bean" class="in.co.rays.proj4.bean.InsuranceBean" scope="request"></jsp:useBean>
 
         <div align="center">

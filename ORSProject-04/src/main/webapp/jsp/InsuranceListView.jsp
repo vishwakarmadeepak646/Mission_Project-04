@@ -15,7 +15,7 @@
 <script src="<%=ORSView.APP_CONTEXT%>/js/checkbox.js"></script>
 </head>
 <body>
-    <%@include file="Header.jsp"%>
+    <%@include file="Header2.jsp"%>
     <jsp:useBean id="bean" class="in.co.rays.proj4.bean.InsuranceBean" scope="request"></jsp:useBean>
 
     <div align="center">

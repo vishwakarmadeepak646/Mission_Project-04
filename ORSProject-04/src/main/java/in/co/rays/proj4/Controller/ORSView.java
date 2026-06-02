@@ -154,4 +154,22 @@ public interface ORSView {
 
 	public String EVENT_MANAGEMENT_LIST_VIEW = PAGE_FOLDER + "/EventManagementListView.jsp";
 	public String EVENT_MANAGEMENT_LIST_CTL = APP_CONTEXT + "/ctl/EventManagementListCtl";
+
+	public String LIBRARY_VIEW = PAGE_FOLDER + "/LibraryView.jsp";
+	public String LIBRARY_CTL = APP_CONTEXT + "/ctl/LibraryCtl";
+
+	public String LIBRARY_LIST_VIEW = PAGE_FOLDER + "/LibraryListView.jsp";
+	public String LIBRARY_LIST_CTL = APP_CONTEXT + "/ctl/LibraryListCtl";
+	
+	public String ATM_VIEW = PAGE_FOLDER + "/ATMView.jsp";
+	public String ATM_CTL = APP_CONTEXT + "/ctl/ATMCtl";
+
+	public String ATM_LIST_VIEW = PAGE_FOLDER + "/ATMListView.jsp";
+	public String ATM_LIST_CTL = APP_CONTEXT + "/ctl/ATMListCtl";
+	
+	public String EMI_VIEW = PAGE_FOLDER + "/EMIView.jsp";
+	public String EMI_CTL = APP_CONTEXT + "/ctl/EMICtl";
+
+	public String EMI_LIST_VIEW = PAGE_FOLDER + "/EMIListView.jsp";
+	public String EMI_LIST_CTL = APP_CONTEXT + "/ctl/EMIListCtl";
 }

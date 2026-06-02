@@ -100,7 +100,7 @@ public class EventManagementCtl extends BaseCtl {
                 ServletUtility.setSuccessMessage("Event added successfully", request);
             } catch (DuplicateRecordException e) {
                 ServletUtility.setBean(bean, request);
-                ServletUtility.setErrorMessage("Event Name already exists", request);
+                ServletUtility.setErrorMessage("Event Name " + bean.getEventName() + " already exists", request);
             } catch (ApplicationException e) {
                 e.printStackTrace();
                 return;
@@ -115,7 +115,7 @@ public class EventManagementCtl extends BaseCtl {
                 ServletUtility.setSuccessMessage("Event updated successfully", request);
             } catch (DuplicateRecordException e) {
                 ServletUtility.setBean(bean, request);
-                ServletUtility.setErrorMessage("Event Name already exists", request);
+                ServletUtility.setErrorMessage("Event Name " + bean.getEventName() + " already exists", request);
             } catch (ApplicationException e) {
                 e.printStackTrace();
                 return;

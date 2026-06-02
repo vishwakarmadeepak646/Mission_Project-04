@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="<%=ORSView.EVENT_MANAGEMENT_CTL%>" method="post">
-        <%@ include file="Header.jsp"%>
+        <%@ include file="Header2.jsp"%>
         <jsp:useBean id="bean" class="in.co.rays.proj4.bean.EventManagementBean" scope="request"></jsp:useBean>
 
         <div align="center">

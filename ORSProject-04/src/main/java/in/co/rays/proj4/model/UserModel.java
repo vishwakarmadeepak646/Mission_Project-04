@@ -73,7 +73,7 @@ public class UserModel {
 
 		UserBean beanExist = findByLogin(bean.getLogin());
 
-		if (beanExist != null && beanExist.getId() !=bean.getId()) {
+		if (beanExist != null && beanExist.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Login id already exists");
 		}
 		
@@ -130,7 +130,7 @@ public class UserModel {
 		
 		UserBean beanExist = findByLogin(bean.getLogin());
 
-		if (beanExist != null && beanExist.getId() !=bean.getId()) {
+		if (beanExist != null && beanExist.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Login id already exists");
 		}
 		
@@ -348,94 +348,7 @@ public class UserModel {
 		return bean;
 	}
 	
-	/**
-	 * Changes user password.
-	 * 
-	 * @param id user id
-	 * @param oldPassword old password
-	 * @param newPassword new password
-	 * @return true if password changed successfully
-	 * @throws RecordNotFoundException if old password is invalid
-	 * @throws ApplicationException if application error occurs
-	 */
-	public boolean changePassword(Long id, String oldPassword, String newPassword)
-			throws RecordNotFoundException, ApplicationException {
-
-		boolean flag = false;
-
-		UserBean beanExist = findByPk(id);
-
-		if (beanExist != null && beanExist.getPassword().equals(oldPassword)) {
-			beanExist.setPassword(newPassword);
-			try {
-				update(beanExist);
-				flag = true;
-			} catch (DuplicateRecordException e) {
-				throw new ApplicationException("Login Id already exist");
-			}
-		} else {
-			throw new RecordNotFoundException("Old Password is Invalid");
-		}
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("login", beanExist.getLogin());
-		map.put("password", beanExist.getPassword());
-		map.put("firstName", beanExist.getFirstName());
-		map.put("lastName", beanExist.getLastName());
-
-		String message = EmailBuilder.getChangePasswordMessage(map);
-
-		EmailMessage msg = new EmailMessage();
-		msg.setTo(beanExist.getLogin());
-		msg.setSubject("ORSProject-04 Password has been changed Successfully.");
-		msg.setMessage(message);
-		msg.setMessageType(EmailMessage.HTML_MSG);
-
-		EmailUtility.sendMail(msg);
-
-		return flag;
-	}
-
-	/**
-	 * Sends password to user email (forgot password).
-	 * 
-	 * @param login user login ID
-	 * @return true if email sent successfully
-	 * @throws RecordNotFoundException if email does not exist
-	 * @throws ApplicationException if application error occurs
-	 */
-	public boolean forgetPassword(String login) throws RecordNotFoundException, ApplicationException {
-
-		UserBean userData = findByLogin(login);
-		boolean flag = false;
-
-		if (userData == null) {
-			throw new RecordNotFoundException("Email ID does not exists..!!");
-		}
-
-		try {
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login", userData.getLogin());
-			map.put("password", userData.getPassword());
-			map.put("firstName", userData.getFirstName());
-			map.put("lastName", userData.getLastName());
-
-			String message = EmailBuilder.getForgetPasswordMessage(map);
-
-			EmailMessage msg = new EmailMessage();
-			msg.setTo(login);
-			msg.setSubject("ORSProject-04 Password Reset");
-			msg.setMessage(message);
-			msg.setMessageType(EmailMessage.HTML_MSG);
-
-			EmailUtility.sendMail(msg);
-			flag = true;
-		} catch (Exception e) {
-			throw new ApplicationException("Please check your internet connection..!!");
-		}
-		return flag;
-	}
-
+	
 	/**
 	 * Returns list of all users.
 	 * 
@@ -560,6 +473,94 @@ public class UserModel {
 		EmailUtility.sendMail(msg);
 
 		return pk;
+	}
+
+	/**
+	 * Changes user password.
+	 * 
+	 * @param id user id
+	 * @param oldPassword old password
+	 * @param newPassword new password
+	 * @return true if password changed successfully
+	 * @throws RecordNotFoundException if old password is invalid
+	 * @throws ApplicationException if application error occurs
+	 */
+	public boolean changePassword(Long id, String oldPassword, String newPassword)
+			throws RecordNotFoundException, ApplicationException {
+
+		boolean flag = false;
+
+		UserBean beanExist = findByPk(id);
+
+		if (beanExist != null && beanExist.getPassword().equals(oldPassword)) {
+			beanExist.setPassword(newPassword);
+			try {
+				update(beanExist);
+				flag = true;
+			} catch (DuplicateRecordException e) {
+				throw new ApplicationException("Login Id already exist");
+			}
+		} else {
+			throw new RecordNotFoundException("Old Password is Invalid");
+		}
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("login", beanExist.getLogin());
+		map.put("password", beanExist.getPassword());
+		map.put("firstName", beanExist.getFirstName());
+		map.put("lastName", beanExist.getLastName());
+
+		String message = EmailBuilder.getChangePasswordMessage(map);
+
+		EmailMessage msg = new EmailMessage();
+		msg.setTo(beanExist.getLogin());
+		msg.setSubject("ORSProject-04 Password has been changed Successfully.");
+		msg.setMessage(message);
+		msg.setMessageType(EmailMessage.HTML_MSG);
+
+		EmailUtility.sendMail(msg);
+
+		return flag;
+	}
+
+	/**
+	 * Sends password to user email (forgot password).
+	 * 
+	 * @param login user login ID
+	 * @return true if email sent successfully
+	 * @throws RecordNotFoundException if email does not exist
+	 * @throws ApplicationException if application error occurs
+	 */
+	public boolean forgetPassword(String login) throws RecordNotFoundException, ApplicationException {
+
+		UserBean userData = findByLogin(login);
+		boolean flag = false;
+
+		if (userData == null) {
+			throw new RecordNotFoundException("Email ID does not exists..!!");
+		}
+
+		try {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("login", userData.getLogin());
+			map.put("password", userData.getPassword());
+			map.put("firstName", userData.getFirstName());
+			map.put("lastName", userData.getLastName());
+
+			String message = EmailBuilder.getForgetPasswordMessage(map);
+
+			EmailMessage msg = new EmailMessage();
+			msg.setTo(login);
+			msg.setSubject("ORSProject-04 Password Reset");
+			msg.setMessage(message);
+			msg.setMessageType(EmailMessage.HTML_MSG);
+
+			EmailUtility.sendMail(msg);
+			flag = true;
+		} catch (Exception e) {
+			throw new ApplicationException("Please check your internet connection..!!");
+		}
+		return flag;
 	}
 
 

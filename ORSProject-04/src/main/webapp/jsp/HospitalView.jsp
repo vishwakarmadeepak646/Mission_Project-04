@@ -11,7 +11,7 @@
 </head>
 <body>
     <form action="<%=ORSView.HOSPITAL_CTL%>" method="post">
-        <%@ include file="Header.jsp"%>
+        <%@ include file="Header2.jsp"%>
         <jsp:useBean id="bean" class="in.co.rays.proj4.bean.HospitalBean" scope="request"></jsp:useBean>
 
         <div align="center">

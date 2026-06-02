@@ -12,7 +12,7 @@
 <body>
     <form action="<%=ORSView.MEETING_CTL%>" method="post">
 
-        <%@ include file="Header.jsp"%>
+        <%@ include file="Header2.jsp"%>
 
         <jsp:useBean id="bean" class="in.co.rays.proj4.bean.MeetingBean" scope="request"></jsp:useBean>
 

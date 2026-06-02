@@ -12,47 +12,9 @@
 
 </head>
 <body>	
-<!-- Logo -->
-	<img src="<%=request.getContextPath()%>/img/customLogo.jpg"
-		align="right" width="100" height="40" border="0">
-	<%
-	UserBean user = (UserBean) session.getAttribute("user");
-	%>
-	<%
-	if (user != null) {
-	%>
-	<h3>
-		Hi,
-		<%=user.getFirstName()%>
-		(<%=session.getAttribute("role")%>)
-	</h3>
-	
-	<%
-	}
-	%>
-	
-	<a href="<%=ORSView.MEETING_CTL%>">Add Meeting</a>
-	<b>|</b>
-	
-	<a href="<%=ORSView.MEETING_LIST_CTL%>">List Meeting</a>
-	<b>|</b>
-	
-	<a href="<%=ORSView.HOSPITAL_CTL%>">Add Hospital</a>
-	<b>|</b>
-	
-	<a href="<%=ORSView.HOSPITAL_LIST_CTL%>">List Hospital</a>
-	<b>|</b>
-	
-	<a href="<%=ORSView.INSURANCE_CTL%>"><b>Add Insurance</b></a>
-	<b>|</b>
-	<a href="<%=ORSView.INSURANCE_LIST_CTL%>"><b>List Insurance</b></a>
-	
-	
-		<a href="<%=ORSView.EVENT_MANAGEMENT_CTL%>"><b>Add Event</b></a>
-	<b>|</b>
-	<a href="<%=ORSView.EVENT_MANAGEMENT_LIST_CTL%>"><b>List Events</b></a>
-	
-	<hr>
+
+  <%@ include file="Header2.jsp"%>
+
 
 	<br>
 	<br>
@@ -63,7 +25,7 @@
 	<br>
 
 	<h1 align="center">
-		<font size="10px" color="navy">Daily Module page</font>
+		<font size="10px" color="navy">Welcome to Daily Module</font>
 	</h1>
 	
 
